@@ -5,8 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLCcodeGen"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="PLC Code Gen" Height="450" Width="800">
     <Grid>
-        
+        <Menu x:Name="Menu" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Margin="0,0,0,0">
+            <MenuItem Header="File">
+                <MenuItem Header="New" Click="NewProject_Click"/>
+                <MenuItem Header="Open" Command="Open"/>
+                <MenuItem Header="Save" Command="Save"/>
+                <MenuItem Header="Exit" Command=""/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Add Cell" Command=""/>
+                <MenuItem Header="Add Station" Command=""/>
+                <MenuItem Header="Add Item" Command=""/>
+            </MenuItem>
+            <MenuItem Header="View">
+            </MenuItem>
+            <MenuItem Header="Library">
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="Help"/>
+                <MenuItem Header="About"/>
+            </MenuItem>
+        </Menu>
+        <DockPanel Margin="0,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="792" Height="396">
+            <ScrollViewer DockPanel.Dock="Left">
+                <TreeView x:Name="ProjectTree" HorizontalAlignment="Left" Margin="2,2,2,2" MinWidth="80"/>
+            </ScrollViewer>
+            <ScrollViewer HorizontalScrollBarVisibility="Visible" DockPanel.Dock="Right">
+                <Viewbox>
+                    <Canvas x:Name="Layout" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="1000" MinHeight="1000" Height="386" Width="598" />
+                </Viewbox>
+            </ScrollViewer>
+        </DockPanel>
     </Grid>
 </Window>

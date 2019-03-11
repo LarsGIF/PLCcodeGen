@@ -23,6 +23,23 @@ namespace PLCcodeGen
         public MainWindow()
         {
             InitializeComponent();
+
+            // Get reference to TreeView
+            TreeView pTree = this.ProjectTree;
+
+            // Create a new cell
+
+            TreeViewItem item = new TreeViewItem() {
+                Header = "Cell 1"
+            };
+            pTree.Items.Add(item);
+
+            MessageBox.Show("Started.");
+        }
+
+        private void NewProject_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
