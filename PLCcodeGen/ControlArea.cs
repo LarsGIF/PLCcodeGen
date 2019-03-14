@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace PLCcodeGen
 {
-    class Line
+    public class ControlArea
     {
         string name;
         string baseProj;
         List<int> perimeter;
         List<Cell> cells;
 
-        public Line(string name)
+        public ControlArea(string name)
         {
             this.Name = name;
         }

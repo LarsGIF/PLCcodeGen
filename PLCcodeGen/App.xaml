@@ -2,8 +2,32 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PLCcodeGen"
+             Startup="AppStartup"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type local:Project}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{Binding Path=LineName}" Grid.Row="0" />
+                <!--TextBlock Text="{Binding Path=PlcName}" Grid.Row="1" /-->
+                <TreeViewItem DataContext="ControlArea"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:ControlArea}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Text="{Binding Path=PlcName}" Grid.Row="0" />
+                <TextBlock Text="{Binding Path=BaseProj}" Grid.Row="0" />
+            </Grid>
+        </DataTemplate>
     </Application.Resources>
 </Application>

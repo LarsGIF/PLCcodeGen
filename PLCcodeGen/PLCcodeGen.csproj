@@ -60,7 +60,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Enclosure.cs" />
+    <Compile Include="NewProjectDlg.xaml.cs">
+      <DependentUpon>NewProjectDlg.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PneuCyl.cs" />
+    <Compile Include="Project.cs" />
     <Compile Include="Station.cs" />
     <Compile Include="ValveIsland.cs" />
     <Page Include="MainWindow.xaml">
@@ -74,11 +78,15 @@
     <Compile Include="Cell.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="FuncBlock.cs" />
-    <Compile Include="Line.cs" />
+    <Compile Include="ControlArea.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NewProjectDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

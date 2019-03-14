@@ -5,38 +5,64 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLCcodeGen"
         mc:Ignorable="d"
-        Title="PLC Code Gen" Height="450" Width="800">
+        Title="PLC Code Gen" 
+        Height="450" 
+        Width="800">
+    
+    <Window.Resources>
+        <CollectionViewSource
+            Source="{Binding Source={x:Static Application.Current}, Path=MyProjects}"
+            x:Key="treeDataView" />
+    </Window.Resources>
+
     <Grid>
-        <Menu x:Name="Menu" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Margin="0,0,0,0">
-            <MenuItem Header="File">
-                <MenuItem Header="New" Click="NewProject_Click"/>
-                <MenuItem Header="Open" Command="Open"/>
-                <MenuItem Header="Save" Command="Save"/>
-                <MenuItem Header="Exit" Command=""/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="300*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="600*"/>
+        </Grid.ColumnDefinitions>
+
+        <Menu x:Name="Menu" Grid.Row="0"  Grid.ColumnSpan="2" Margin="0,0,0,0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New..." Click="NewProject_Click"/>
+                <MenuItem Header="_Open..." Click="Open_Click"/>
+                <MenuItem Header="_Close" Click="Close_Click"/>
+                <MenuItem Header="_Save" Click="Save_Click"/>
+                <MenuItem Header="_Exit" Click="Exit_Click"/>
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem Header="Add Cell" Command=""/>
-                <MenuItem Header="Add Station" Command=""/>
-                <MenuItem Header="Add Item" Command=""/>
+                <MenuItem Header="Add _Cell" Click="AddCell_Click"/>
+                <MenuItem Header="Add _Station"/>
+                <MenuItem Header="Add _Item"/>
             </MenuItem>
-            <MenuItem Header="View">
+            <MenuItem Header="_View">
             </MenuItem>
-            <MenuItem Header="Library">
+            <MenuItem Header="_Library">
             </MenuItem>
-            <MenuItem Header="Help">
-                <MenuItem Header="Help"/>
-                <MenuItem Header="About"/>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_Help"/>
+                <MenuItem Header="_About"/>
             </MenuItem>
         </Menu>
-        <DockPanel Margin="0,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="792" Height="396">
-            <ScrollViewer DockPanel.Dock="Left">
-                <TreeView x:Name="ProjectTree" HorizontalAlignment="Left" Margin="2,2,2,2" MinWidth="80"/>
-            </ScrollViewer>
-            <ScrollViewer HorizontalScrollBarVisibility="Visible" DockPanel.Dock="Right">
-                <Viewbox>
-                    <Canvas x:Name="Layout" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="1000" MinHeight="1000" Height="386" Width="598" />
-                </Viewbox>
-            </ScrollViewer>
-        </DockPanel>
+
+        <TreeView x:Name="ProjectTree" Grid.Row="1" Grid.Column="0" Margin="2,2,2,2" 
+                  ItemsSource="{Binding Source={StaticResource treeDataView}}"/>
+
+
+        <ScrollViewer Grid.Row="1" Grid.Column="1">
+            <Viewbox>
+                <Canvas x:Name="Layout" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        MinWidth="670" 
+                        MinHeight="380" 
+                        Height="Auto" 
+                        Width="Auto"/>
+            </Viewbox>
+        </ScrollViewer>
     </Grid>
 </Window>
