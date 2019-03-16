@@ -31,15 +31,10 @@ namespace PLCcodeGen
         #region File Menu
         private void NewProject_Click(object sender, RoutedEventArgs e)
         {
-            Project prj;
-
             switch (((App)Application.Current).MyProjects.Count)
             {
                 case 0:
-                    prj = new Project();
-                    if(prj.CreateProject(this))
-                        // Store new project in tree
-                        ((App)Application.Current).MyProjects.Add(prj);
+                    Project.CreateProject(this);
                     break;
                 case 1:
                     switch (MessageBox.Show(
@@ -54,12 +49,10 @@ namespace PLCcodeGen
                         case MessageBoxResult.Cancel:
                             return;
                     }
-                    prj = new Project();
-                    if (prj.CreateProject(this))
+                    if (Project.CreateProject(this))
                     {
-                        // Remove old and store new project in tree
+                        // You will now have two projects in the tree. Remove the old one.
                         ((App)Application.Current).MyProjects.RemoveAt(0);
-                        ((App)Application.Current).MyProjects.Add(prj);
                     }
                     break;
                 default:

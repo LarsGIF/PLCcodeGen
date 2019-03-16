@@ -17,26 +17,16 @@ namespace PLCcodeGen
         public ControlArea CtrlArea { get; set; }
         #endregion
 
-        public bool CreateProject(MainWindow mWin)
+        public static bool CreateProject(MainWindow mWin)
         {
             // Instantiate the dialog box
             NewProjectDlg dlg = new NewProjectDlg { Owner = mWin };
-
-            // Open the dialog box modally
-            if (dlg.ShowDialog() == true)
-            {
-                CtrlArea = new ControlArea(dlg.plcNameTxt.Text);
-                LineName = dlg.lineNameTxt.Text;
-                CtrlArea.BaseProj = "AZS_16F2T24X";
-                return true;
-            }
-            else
-                return false;
+            return (dlg.ShowDialog() == true);
         }
 
         public bool OpenProject()
         {
-            // Configure open file dialog box
+            // Configure and open file dialog box
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = ""; // Default file name
             dlg.DefaultExt = ".pcd"; // Default file extension

@@ -63,6 +63,7 @@
     <Compile Include="NewProjectDlg.xaml.cs">
       <DependentUpon>NewProjectDlg.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NoWhiteSpaceRule.cs" />
     <Compile Include="PneuCyl.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Station.cs" />

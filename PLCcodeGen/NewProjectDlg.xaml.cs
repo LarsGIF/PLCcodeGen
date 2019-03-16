@@ -29,7 +29,12 @@ namespace PLCcodeGen
 
         private void CreateBtn_Click(object sender, RoutedEventArgs e)
         {
-            // if (!IsValid(this)) return;
+            //if (!IsValid(this)) this.DialogResult = false;
+            Project prj = new Project();
+            prj.LineName = lineNameTxt.Text;
+            prj.CtrlArea = (ControlArea)(this.DataContext);
+            ((App)Application.Current).MyProjects.Add(prj);
+
             this.DialogResult = true; // Will also close the dialog.
         }
 
@@ -37,15 +42,5 @@ namespace PLCcodeGen
         {
             this.Close();
         }
-    }
-
-    public class PlcNameValidationRule : ValidationRule
-    {
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
-        {
-            // Name is valid.
-            return new ValidationResult(true, null);
-        }
-
     }
 }

@@ -25,12 +25,12 @@ namespace PLCcodeGen
         #endregion
 
         void AppStartup(object sender, StartupEventArgs args)
-        {
+        {/*
             Project proj = new Project();
             proj.LineName = "Underbody Line";
             proj.CtrlArea = new ControlArea("BUB");
             proj.CtrlArea.BaseProj = "AZS_16F2T24X";
-            myProjects.Add(proj);
+            myProjects.Add(proj);*/
         }
     }
 }
