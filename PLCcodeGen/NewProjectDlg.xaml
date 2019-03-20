@@ -10,10 +10,10 @@
         FocusManager.FocusedElement="{Binding ElementName=lineNameTxt}">
 
     <Window.Resources>
-        <local:ControlArea x:Key="controlArea"/>
+        <local:Project x:Key="project"/>
     </Window.Resources>
     <Window.DataContext>
-        <Binding Source="{StaticResource controlArea}"/>
+        <Binding Source="{StaticResource project}"/>
     </Window.DataContext>
 
     <Grid>
@@ -30,7 +30,9 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="Line name:" Grid.Row="0" Grid.Column="0" Height="26" Width="71" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <TextBox x:Name="lineNameTxt" Grid.Row="1" Grid.Column="1" Height="26" Width="234" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox x:Name="lineNameTxt" Grid.Row="1" Grid.Column="1" Height="26" Width="234" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Binding Path="LineName" UpdateSourceTrigger="PropertyChanged"/>
+            </TextBox>
         </Grid>
         <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center">
             <Grid>

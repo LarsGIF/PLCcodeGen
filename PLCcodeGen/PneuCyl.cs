@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace PLCcodeGen
 {
-    class PneuCyl : Item
+    class PneuCyl : EquipItem
     {
         string name;
         string valve;

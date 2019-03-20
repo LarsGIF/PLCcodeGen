@@ -63,7 +63,6 @@
     <Compile Include="NewProjectDlg.xaml.cs">
       <DependentUpon>NewProjectDlg.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NoWhiteSpaceRule.cs" />
     <Compile Include="PneuCyl.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Station.cs" />
@@ -77,9 +76,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Cell.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="EquipItem.cs" />
     <Compile Include="FuncBlock.cs" />
-    <Compile Include="ControlArea.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

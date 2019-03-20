@@ -8,12 +8,6 @@
         Title="PLC Code Gen" 
         Height="450" 
         Width="800">
-    
-    <Window.Resources>
-        <CollectionViewSource
-            Source="{Binding Source={x:Static Application.Current}, Path=MyProjects}"
-            x:Key="treeDataView" />
-    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -26,7 +20,7 @@
             <ColumnDefinition Width="600*"/>
         </Grid.ColumnDefinitions>
 
-        <Menu x:Name="Menu" Grid.Row="0"  Grid.ColumnSpan="2" Margin="0,0,0,0">
+        <Menu Name="Menu" Grid.Row="0"  Grid.ColumnSpan="2" Margin="0,0,0,0">
             <MenuItem Header="_File">
                 <MenuItem Header="_New..." Click="NewProject_Click"/>
                 <MenuItem Header="_Open..." Click="Open_Click"/>
@@ -49,13 +43,35 @@
             </MenuItem>
         </Menu>
 
-        <TreeView x:Name="ProjectTree" Grid.Row="1" Grid.Column="0" Margin="2,2,2,2" 
-                  ItemsSource="{Binding Source={StaticResource treeDataView}}"/>
-
+        <TreeView Name="projectTree" Grid.Row="1" Grid.Column="0">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate 
+                    DataType="{x:Type local:Project}" ItemsSource="{Binding Cells}">
+                    <!--ItemsSource="{Binding Source={x:Static Application.Current} , Path=MyProjects}"-->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding LineName}"/>
+                        <TextBlock Text=", PLC:"/>
+                        <TextBlock Text="{Binding PlcName}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:Cell}" ItemsSource="{Binding Stations}">
+                    <TextBlock Text="{Binding Name}"/>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:Station}" ItemsSource="{Binding EquipItems}">
+                    <TextBlock Text="{Binding Name}"/>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:EquipItem}" ItemsSource="{Binding FBlocks}">
+                    <TextBlock Text="{Binding Name}"/>
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type local:FuncBlock}">
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </TreeView.Resources>
+        </TreeView>
 
         <ScrollViewer Grid.Row="1" Grid.Column="1">
             <Viewbox>
-                <Canvas x:Name="Layout" 
+                <Canvas Name="Layout" 
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
                         MinWidth="670" 

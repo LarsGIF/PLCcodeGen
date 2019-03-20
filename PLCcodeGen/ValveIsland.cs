@@ -8,7 +8,7 @@ namespace PLCcodeGen
 {
     public enum IOtype { inp, outp, inOut}
 
-    class ValveIsland : Item
+    class ValveIsland : EquipItem
     {
         List<Module> modules;
         List<string> valves;

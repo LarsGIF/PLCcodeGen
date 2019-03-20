@@ -25,12 +25,34 @@ namespace PLCcodeGen
         #endregion
 
         void AppStartup(object sender, StartupEventArgs args)
-        {/*
+        {
+            // Temporarily initialize the project tree with some data for testing
+            EquipItem v1 = new EquipItem("V1");
+            EquipItem v2 = new EquipItem("V2");
+            FuncBlock fBlock1 = new FuncBlock("ValveCtrl2");
+            FuncBlock fBlock2 = new FuncBlock("ValveCtrl3");
+            v1.FBlocks.Add(fBlock1);
+            v2.FBlocks.Add(fBlock2);
+            Station stn010 = new Station("S010");
+            stn010.EquipItems.Add(v1);
+            stn010.EquipItems.Add(v2);
+            Station stn020 = new Station("S020");
+            stn020.EquipItems.Add(v1);
+            Cell cell010 = new Cell("C010");
+            cell010.Stations.Add(stn010);
+            cell010.Stations.Add(stn020);
+            Station stn030 = new Station("S030");
+            stn030.EquipItems.Add(v1);
+            Cell cell030 = new Cell("C030");
+            cell030.Stations.Add(stn030);
             Project proj = new Project();
             proj.LineName = "Underbody Line";
-            proj.CtrlArea = new ControlArea("BUB");
-            proj.CtrlArea.BaseProj = "AZS_16F2T24X";
-            myProjects.Add(proj);*/
+            proj.PlcName = "BUB";
+            proj.BaseProj = "AZS_16F2T24X";
+            proj.Cells.Add(cell010);
+            proj.Cells.Add(cell030);
+            myProjects.Add(proj);
+            
         }
     }
 }

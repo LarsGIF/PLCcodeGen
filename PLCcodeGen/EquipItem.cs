@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace PLCcodeGen
 {
-    public class Station
+    public class EquipItem
     {
         private string name;
-        private ObservableCollection<EquipItem> equipItems = new ObservableCollection<EquipItem>();
+        private ObservableCollection<FuncBlock> fBlocks = new ObservableCollection<FuncBlock>();
 
         #region Properties Getters and Setters
         public string Name
@@ -18,31 +18,31 @@ namespace PLCcodeGen
             get => name;
             set => name = value;
         }
-        public ObservableCollection<EquipItem> EquipItems
+        public ObservableCollection<FuncBlock> FBlocks
         {
-            get => equipItems;
-            set => equipItems = value;
+            get => fBlocks;
+            set => fBlocks = value;
         }
         #endregion
 
         #region Constructors
-        public Station(string name)
+        public EquipItem(string name)
         {
             this.name = name;
         }
         #endregion
 
-        public void AddItem(string name)
+        public void AddFBlock(string name)
         {
-            equipItems.Add(new EquipItem(name));
+            fBlocks.Add(new FuncBlock(name));
         }
 
-        public bool RemoveItem(string name)
+        public bool RemoveFBlock(string name)
         {
-            int idx = equipItems.IndexOf(new EquipItem(name));
+            int idx = fBlocks.IndexOf(new FuncBlock(name));
             if (idx >= 0)
             {
-                equipItems.RemoveAt(idx);
+                fBlocks.RemoveAt(idx);
                 return true;
             }
             return false;

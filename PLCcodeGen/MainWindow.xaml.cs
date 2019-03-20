@@ -20,12 +20,10 @@ namespace PLCcodeGen
     /// </summary>
     public partial class MainWindow : Window
     {
-        CollectionViewSource treeDataView;
-
         public MainWindow()
         {
             InitializeComponent();
-            treeDataView = (CollectionViewSource)(this.Resources["treeDataView"]);
+            projectTree.ItemsSource = ((App)Application.Current).MyProjects;
         }
 
         #region File Menu

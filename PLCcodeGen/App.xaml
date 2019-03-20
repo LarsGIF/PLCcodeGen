@@ -5,20 +5,19 @@
              Startup="AppStartup"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type local:Project}">
+        <HierarchicalDataTemplate DataType="{x:Type local:Project}" ItemsSource="{Binding CtrlArea}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="{Binding Path=LineName}" Grid.Row="0" />
-                <!--TextBlock Text="{Binding Path=PlcName}" Grid.Row="1" /-->
-                <TreeViewItem DataContext="ControlArea"/>
+                <TextBlock Text="{Binding Path=PlcName}" Grid.Row="0" />
+                <TextBlock Text="{Binding Path=BaseProj}" Grid.Row="0" />
             </Grid>
-        </DataTemplate>
+        </HierarchicalDataTemplate>
 
-        <DataTemplate DataType="{x:Type local:ControlArea}">
+        <HierarchicalDataTemplate DataType="{x:Type local:Cell}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -28,6 +27,6 @@
                 <TextBlock Text="{Binding Path=PlcName}" Grid.Row="0" />
                 <TextBlock Text="{Binding Path=BaseProj}" Grid.Row="0" />
             </Grid>
-        </DataTemplate>
+        </HierarchicalDataTemplate>
     </Application.Resources>
 </Application>
