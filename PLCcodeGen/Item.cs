@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PLCcodeGen
 {
-    public class EquipItem
+    public class Item
     {
         private string name;
         private ObservableCollection<FuncBlock> fBlocks = new ObservableCollection<FuncBlock>();
@@ -26,7 +26,7 @@ namespace PLCcodeGen
         #endregion
 
         #region Constructors
-        public EquipItem(string name)
+        public Item(string name)
         {
             this.name = name;
         }

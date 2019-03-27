@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:PLCcodeGen"
              Startup="AppStartup"
              StartupUri="MainWindow.xaml">
-    <Application.Resources>
+    <!-- Application.Resources>
         <HierarchicalDataTemplate DataType="{x:Type local:Project}" ItemsSource="{Binding CtrlArea}">
             <Grid>
                 <Grid.RowDefinitions>
@@ -28,5 +28,5 @@
                 <TextBlock Text="{Binding Path=BaseProj}" Grid.Row="0" />
             </Grid>
         </HierarchicalDataTemplate>
-    </Application.Resources>
+    </Application.Resources-->
 </Application>

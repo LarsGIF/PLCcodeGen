@@ -12,7 +12,7 @@ namespace PLCcodeGen
     {
         private string name;
         private List<Point> perimeter = new List<Point>();
-        //private ObservableCollection<FuncBlock> funcBlocks = new ObservableCollection<FuncBlock>();
+        private List<Item> items = new List<Item>();
         private ObservableCollection<Station> stations = new ObservableCollection<Station>();
 
         #region  Properties Getters and Setters
@@ -26,11 +26,11 @@ namespace PLCcodeGen
             get => perimeter;
             set => perimeter = value;
         }
-        /*public ObservableCollection<FuncBlock> FuncBlocks
+        public List<Item> Items
         {
-            get => funcBlocks;
-            set => funcBlocks = value;
-        }*/
+            get => items;
+            set => items = value;
+        }
         public ObservableCollection<Station> Stations
         {
             get => stations;
@@ -45,21 +45,21 @@ namespace PLCcodeGen
         }
         #endregion
 
-        /*public void AddFBlock(string name)
+        public void AddItem(string name)
         {
-            funcBlocks.Add(new FuncBlock(name));
+            items.Add(new Item(name));
         }
 
-        public bool RemoveFBlock(string name)
+        public bool RemoveItem(string name)
         {
-            int idx = funcBlocks.IndexOf(new FuncBlock(name));
+            int idx = items.IndexOf(new Item(name));
             if (idx >= 0)
             {
-                funcBlocks.RemoveAt(idx);
+                items.RemoveAt(idx);
                 return true;
             }
             return false;
-        }*/
+        }
 
         public void AddStation(string name)
         {

@@ -14,12 +14,14 @@ namespace PLCcodeGen
     public class Project : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public Object SelectedItem;
 
         private string lineName;
         private string projFile;
         private string plcName;
         private string baseProj;
         private List<Point> perimeter;
+        private List<Item> items;
         private ObservableCollection<Cell> cells;
 
         #region Properties Getters and Setters
@@ -59,6 +61,11 @@ namespace PLCcodeGen
         {
             get => perimeter;
             set => perimeter = value;
+        }
+        public List<Item> Items
+        {
+            get => items;
+            set => items = value;
         }
         public ObservableCollection<Cell> Cells
         {

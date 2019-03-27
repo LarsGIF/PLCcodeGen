@@ -10,7 +10,7 @@ namespace PLCcodeGen
     public class Station
     {
         private string name;
-        private ObservableCollection<EquipItem> equipItems = new ObservableCollection<EquipItem>();
+        private ObservableCollection<Item> items = new ObservableCollection<Item>();
 
         #region Properties Getters and Setters
         public string Name
@@ -18,10 +18,10 @@ namespace PLCcodeGen
             get => name;
             set => name = value;
         }
-        public ObservableCollection<EquipItem> EquipItems
+        public ObservableCollection<Item> Items
         {
-            get => equipItems;
-            set => equipItems = value;
+            get => items;
+            set => items = value;
         }
         #endregion
 
@@ -34,15 +34,15 @@ namespace PLCcodeGen
 
         public void AddItem(string name)
         {
-            equipItems.Add(new EquipItem(name));
+            Items.Add(new Item(name));
         }
 
         public bool RemoveItem(string name)
         {
-            int idx = equipItems.IndexOf(new EquipItem(name));
+            int idx = Items.IndexOf(new Item(name));
             if (idx >= 0)
             {
-                equipItems.RemoveAt(idx);
+                Items.RemoveAt(idx);
                 return true;
             }
             return false;

@@ -25,7 +25,7 @@ namespace PLCcodeGen
 
         public bool RemoveFBlock(String name)
         {
-            int idx = fBlocks.FindIndex(x => x.Name == name);
+            int idx = fBlocks.FindIndex(x => x.TypeName == name);
             if (idx >= 0)
             {
                 fBlocks.RemoveAt(idx);

@@ -20,6 +20,8 @@ namespace PLCcodeGen
     /// </summary>
     public partial class MainWindow : Window
     {
+        Object SelectedItem;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -135,5 +137,34 @@ namespace PLCcodeGen
             }
         }
         #endregion
+
+        private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            SelectedItem = e.NewValue;
+            currentItem.Content = SelectedItem;
+        }
+    }
+
+    public class PlcItemTemplateSelector : DataTemplateSelector
+    {
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        {
+            FrameworkElement element = container as FrameworkElement;
+            
+            if (element == null || item == null) return null;// No template...
+
+            switch (item.GetType().Name)
+            {
+                case "Project":
+                    return element.FindResource("ProjItemTemplate") as DataTemplate;
+                case "Cell":
+                    return element.FindResource("CellItemTemplate") as DataTemplate;
+                case "Station":
+                    return element.FindResource("StnItemTemplate") as DataTemplate;
+                default:
+                    // No template implemented for other types
+                    return null;
+            }            
+        }
     }
 }

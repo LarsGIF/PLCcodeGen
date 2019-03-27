@@ -8,10 +8,107 @@
         Title="PLC Code Gen" 
         Height="450" 
         Width="800">
+    
+    <Window.Resources>
+        <local:PlcItemTemplateSelector x:Key="plcItemTemplateSelector"/>
+        
+        <DataTemplate x:Key="ProjItemTemplate">
+            <Border BorderBrush="Black" BorderThickness="0.5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Plc-name: </TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Path=PlcName}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Base proj: </TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Path=BaseProj}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">Project file: </TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Path=ProjFile}"/>
+                    <!--TextBlock Grid.Row="3" Grid.Column="0">FB instance</TextBlock>
+                    <TextBlock  Grid.Row="3" Grid.Column="1">FB type</TextBlock>
+                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding TypeName}"/>
+                        </StackPanel>
+                    </StackPanel-->
+                </Grid>
+            </Border>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="CellItemTemplate">
+            <Border BorderBrush="Black" BorderThickness="0.5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Name:</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Path=Name}"/>
+                    <!--TextBlock Grid.Row="3" Grid.Column="0">FB instance</TextBlock>
+                    <TextBlock  Grid.Row="3" Grid.Column="1">FB type</TextBlock>
+                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding TypeName}"/>
+                        </StackPanel>
+                    </StackPanel-->
+                </Grid>
+            </Border>
+        </DataTemplate>
 
+        <DataTemplate x:Key="StnItemTemplate">
+            <Border BorderBrush="Black" BorderThickness="0.5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Name:</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Path=Name}"/>
+                    <!--TextBlock Grid.Row="3" Grid.Column="0">FB instance</TextBlock>
+                    <TextBlock  Grid.Row="3" Grid.Column="1">FB type</TextBlock>
+                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding TypeName}"/>
+                        </StackPanel>
+                    </StackPanel-->
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="ItemTemplate">
+            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}"/>
+                    <TextBlock Text="{Binding TypeName}"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="300*"/>
             <RowDefinition Height="300*"/>
         </Grid.RowDefinitions>
         
@@ -43,41 +140,48 @@
             </MenuItem>
         </Menu>
 
-        <TreeView Name="projectTree" Grid.Row="1" Grid.Column="0">
+        <TreeView Name="projectTree" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=MyProjects}" SelectedItemChanged="TreeView_OnSelectedItemChanged">
             <TreeView.Resources>
                 <HierarchicalDataTemplate 
                     DataType="{x:Type local:Project}" ItemsSource="{Binding Cells}">
-                    <!--ItemsSource="{Binding Source={x:Static Application.Current} , Path=MyProjects}"-->
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding LineName}"/>
-                        <TextBlock Text=", PLC:"/>
+                        <TextBlock Text=", PLC: "/>
                         <TextBlock Text="{Binding PlcName}"/>
                     </StackPanel>
                 </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type local:Cell}" ItemsSource="{Binding Stations}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Cell: "/>
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <!-- Ersätt nedantående med bortkommenterad kod för att fördjupa trädet. -->
+                <DataTemplate DataType="{x:Type local:Station}">
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+                <!--
+                <HierarchicalDataTemplate DataType="{x:Type local:Station}" ItemsSource="{Binding Items}">
                     <TextBlock Text="{Binding Name}"/>
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type local:Station}" ItemsSource="{Binding EquipItems}">
-                    <TextBlock Text="{Binding Name}"/>
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type local:EquipItem}" ItemsSource="{Binding FBlocks}">
+                <HierarchicalDataTemplate DataType="{x:Type local:Item}" ItemsSource="{Binding FBlocks}">
                     <TextBlock Text="{Binding Name}"/>
                 </HierarchicalDataTemplate>
                 <DataTemplate DataType="{x:Type local:FuncBlock}">
-                    <TextBlock Text="{Binding Name}"/>
+                    <TextBlock Text="{Binding TypeName}"/>
                 </DataTemplate>
+                -->
             </TreeView.Resources>
         </TreeView>
 
-        <ScrollViewer Grid.Row="1" Grid.Column="1">
+        <ContentControl Name="currentItem" Grid.Row="2" Grid.Column="0" 
+                        ContentTemplateSelector="{StaticResource plcItemTemplateSelector}"/>
+
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
             <Viewbox>
                 <Canvas Name="Layout" 
-                        HorizontalAlignment="Center" 
-                        VerticalAlignment="Center" 
-                        MinWidth="670" 
-                        MinHeight="380" 
-                        Height="Auto" 
-                        Width="Auto"/>
+                        HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        MinHeight="380" MinWidth="670" Height="Auto" Width="Auto"/>
             </Viewbox>
         </ScrollViewer>
     </Grid>

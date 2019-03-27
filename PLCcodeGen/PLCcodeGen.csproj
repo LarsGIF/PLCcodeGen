@@ -76,7 +76,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Cell.cs" />
-    <Compile Include="EquipItem.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="FuncBlock.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
