@@ -10,123 +10,90 @@
         Width="800">
     
     <Window.Resources>
+        <!-- 
+        Below data templates are used by the TemplateSelector used
+        for the ContentControl in Grid on Grid.Row="2" Grid.Column="0" 
+        -->
         <local:PlcItemTemplateSelector x:Key="plcItemTemplateSelector"/>
         
         <DataTemplate x:Key="ProjItemTemplate">
-            <Border BorderBrush="Black" BorderThickness="0.5">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition Height="20"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Plc-name: </TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Path=PlcName}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Base proj: </TextBlock>
-                    <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Path=BaseProj}"/>
-                    <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">Project file: </TextBlock>
-                    <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Path=ProjFile}"/>
-                    <!--TextBlock Grid.Row="3" Grid.Column="0">FB instance</TextBlock>
-                    <TextBlock  Grid.Row="3" Grid.Column="1">FB type</TextBlock>
-                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" >
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}"/>
-                            <TextBlock Text="{Binding TypeName}"/>
-                        </StackPanel>
-                    </StackPanel-->
-                </Grid>
-            </Border>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,5,0" HorizontalAlignment="Right">Plc name:</TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding PlcName}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,5,0" HorizontalAlignment="Right">Base proj:</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding BaseProj}"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,5,0" HorizontalAlignment="Right">Project file:</TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding ProjFile}"/>
+                <ListView Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding Items}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Items" DisplayMemberBinding="{Binding Name}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="CellItemTemplate">
-            <Border BorderBrush="Black" BorderThickness="0.5">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition Height="20"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Name:</TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Path=Name}"/>
-                    <!--TextBlock Grid.Row="3" Grid.Column="0">FB instance</TextBlock>
-                    <TextBlock  Grid.Row="3" Grid.Column="1">FB type</TextBlock>
-                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" >
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}"/>
-                            <TextBlock Text="{Binding TypeName}"/>
-                        </StackPanel>
-                    </StackPanel-->
-                </Grid>
-            </Border>
+            <ListView ItemsSource="{Binding Items}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Items" DisplayMemberBinding="{Binding Name}"/>
+                    </GridView>
+                </ListView.View>
+        </ListView>
         </DataTemplate>
 
         <DataTemplate x:Key="StnItemTemplate">
-            <Border BorderBrush="Black" BorderThickness="0.5">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition Height="20"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Name:</TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Path=Name}"/>
-                    <!--TextBlock Grid.Row="3" Grid.Column="0">FB instance</TextBlock>
-                    <TextBlock  Grid.Row="3" Grid.Column="1">FB type</TextBlock>
-                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" >
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}"/>
-                            <TextBlock Text="{Binding TypeName}"/>
-                        </StackPanel>
-                    </StackPanel-->
-                </Grid>
-            </Border>
+            <ListView ItemsSource="{Binding Items}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Items" DisplayMemberBinding="{Binding Name}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </DataTemplate>
-        <DataTemplate x:Key="ItemTemplate">
-            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Name}"/>
-                    <TextBlock Text="{Binding TypeName}"/>
-                </StackPanel>
-            </StackPanel>
-        </DataTemplate>
-    </Window.Resources>
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="300*"/>
-            <RowDefinition Height="300*"/>
-        </Grid.RowDefinitions>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150*"/>
-            <ColumnDefinition Width="600*"/>
-        </Grid.ColumnDefinitions>
 
-        <Menu Name="Menu" Grid.Row="0"  Grid.ColumnSpan="2" Margin="0,0,0,0">
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <!-- File Menu -->
+        <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand_Executed" CanExecute="NewCommand_CanExecute"/>
+        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed" CanExecute="OpenCommand_CanExecute"/>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommand_Executed" CanExecute="CloseCommand_CanExecute"/>
+        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed" CanExecute="SaveCommand_CanExecute"/>
+
+        <!-- Edit Menu -->
+        <CommandBinding Command="local:PcgCommands.AddCell" Executed="AddCellCommand_Executed" CanExecute="AddCellCommand_CanExecute"/>
+    
+    </Window.CommandBindings>
+    
+    <DockPanel >
+        <Menu Name="Menu" DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_New..." Click="NewProject_Click"/>
-                <MenuItem Header="_Open..." Click="Open_Click"/>
-                <MenuItem Header="_Close" Click="Close_Click"/>
-                <MenuItem Header="_Save" Click="Save_Click"/>
+                <MenuItem Command="ApplicationCommands.New"/>
+                <MenuItem Command="ApplicationCommands.Open"/>
+                <MenuItem Command="ApplicationCommands.Close"/>
+                <MenuItem Command="ApplicationCommands.Save"/>
+                <Separator/>
                 <MenuItem Header="_Exit" Click="Exit_Click"/>
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem Header="Add _Cell" Click="AddCell_Click"/>
+                <MenuItem Command="Cut"/>
+                <MenuItem Command="Copy"/>
+                <MenuItem Command="Paste"/>
+                <Separator/>
+                <MenuItem Command="local:PcgCommands.AddCell"/>
                 <MenuItem Header="Add _Station"/>
                 <MenuItem Header="Add _Item"/>
             </MenuItem>
@@ -140,49 +107,88 @@
             </MenuItem>
         </Menu>
 
-        <TreeView Name="projectTree" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=MyProjects}" SelectedItemChanged="TreeView_OnSelectedItemChanged">
-            <TreeView.Resources>
-                <HierarchicalDataTemplate 
-                    DataType="{x:Type local:Project}" ItemsSource="{Binding Cells}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding LineName}"/>
-                        <TextBlock Text=", PLC: "/>
-                        <TextBlock Text="{Binding PlcName}"/>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type local:Cell}" ItemsSource="{Binding Stations}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Cell: "/>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Command="New" ToolTip="Create a new project.">
+                    <Image Source="Properties/4642_48x48x32.png" Height="16" Width="16"/>
+                </Button>
+                <Button Command="Open" ToolTip="Open an existing project.">
+                    <Image Source="Properties/6454_48x48x32.png" Height="16" Width="16"/>
+                </Button>
+                <Button Command="Save" ToolTip="Save the open project.">
+                    <Image Source="Properties/ic_menu_save.png" Height="16" Width="16"/>
+                </Button>
+            </ToolBar>
+            <ToolBar>
+                <Button Command="Cut" ToolTip="Cut selection to Windows Clipboard.">
+                    <Image Source="Properties/ic_menu_cut_holo_light.png" Height="16" Width="16"/>
+                </Button>
+                <Button Command="Copy" ToolTip="Copy selection to Windows Clipboard.">
+                    <Image Source="Properties/ic_menu_copy_holo_light.png"  Height="16" Width="16"/>
+                </Button>
+                <Button Command="Paste" ToolTip="Paste from Windows Clipboard.">
+                    <Image Source="Properties/ic_menu_paste_holo_light.png"  Height="16" Width="16"/>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        
+        <StatusBar Name="Statusbar" DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Name="lblCursorPosition"/>
+            </StatusBarItem>
+        </StatusBar>
+        
+       <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+        
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="80*"/>
+            </Grid.ColumnDefinitions>
+            
+            <TreeView Name="projectTree" ItemsSource="{Binding Path=MyProjects}" SelectedItemChanged="TreeView_OnSelectedItemChanged">
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate 
+                        DataType="{x:Type local:Project}" ItemsSource="{Binding Cells}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding LineName}"/>
+                            <TextBlock Text=", PLC: "/>
+                            <TextBlock Text="{Binding PlcName}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type local:Cell}" ItemsSource="{Binding Stations}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Cell: "/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate DataType="{x:Type local:Station}">
                         <TextBlock Text="{Binding Name}"/>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-                <!-- Ersätt nedantående med bortkommenterad kod för att fördjupa trädet. -->
-                <DataTemplate DataType="{x:Type local:Station}">
-                    <TextBlock Text="{Binding Name}"/>
-                </DataTemplate>
-                <!--
-                <HierarchicalDataTemplate DataType="{x:Type local:Station}" ItemsSource="{Binding Items}">
-                    <TextBlock Text="{Binding Name}"/>
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type local:Item}" ItemsSource="{Binding FBlocks}">
-                    <TextBlock Text="{Binding Name}"/>
-                </HierarchicalDataTemplate>
-                <DataTemplate DataType="{x:Type local:FuncBlock}">
-                    <TextBlock Text="{Binding TypeName}"/>
-                </DataTemplate>
-                -->
-            </TreeView.Resources>
-        </TreeView>
+                    </DataTemplate>
+                </TreeView.Resources>
+            </TreeView>
 
-        <ContentControl Name="currentItem" Grid.Row="2" Grid.Column="0" 
-                        ContentTemplateSelector="{StaticResource plcItemTemplateSelector}"/>
+            <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch"/>
 
-        <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
-            <Viewbox>
-                <Canvas Name="Layout" 
-                        HorizontalAlignment="Center" VerticalAlignment="Center" 
-                        MinHeight="380" MinWidth="670" Height="Auto" Width="Auto"/>
-            </Viewbox>
-        </ScrollViewer>
-    </Grid>
+            <Border Grid.Row="2" BorderBrush="Black" BorderThickness="0.5" Background="Azure">
+                <ContentControl Name="currentItem"  Margin="5"
+                                ContentTemplateSelector="{StaticResource plcItemTemplateSelector}"/>
+            </Border>
+        
+            <GridSplitter Grid.Column="1" Grid.RowSpan="3" Width="5" HorizontalAlignment="Stretch"/>
+
+            <ScrollViewer Grid.Column="2" Grid.RowSpan="3">
+                <Viewbox>
+                    <Canvas Name="layout" 
+                            HorizontalAlignment="Center" VerticalAlignment="Center" 
+                            MinHeight="380" MinWidth="670" Height="Auto" Width="Auto"/>
+                </Viewbox>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
 </Window>

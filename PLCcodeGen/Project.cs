@@ -13,7 +13,6 @@ namespace PLCcodeGen
 {
     public class Project : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         public Object SelectedItem;
 
         private string lineName;
@@ -21,8 +20,8 @@ namespace PLCcodeGen
         private string plcName;
         private string baseProj;
         private List<Point> perimeter;
-        private List<Item> items;
-        private ObservableCollection<Cell> cells;
+        private ObservableCollection<Item> items = new ObservableCollection<Item>();
+        private ObservableCollection<Cell> cells = new ObservableCollection<Cell>();
 
         #region Properties Getters and Setters
         public string LineName
@@ -30,8 +29,11 @@ namespace PLCcodeGen
             get => lineName;
             set
             {
-                lineName = value;
-                OnPropertyChanged("LineName");
+                if(lineName != value)
+                {
+                    lineName = value;
+                    OnPropertyChanged("LineName");
+                }
             }
         }
         public string ProjFile
@@ -44,8 +46,11 @@ namespace PLCcodeGen
             get => plcName; 
             set
             {
-                plcName = value;
-                OnPropertyChanged("PlcName");
+                if (plcName != value)
+                { 
+                    plcName = value;
+                    OnPropertyChanged("PlcName");
+                }
             }
         }
         public string BaseProj
@@ -53,8 +58,11 @@ namespace PLCcodeGen
             get => baseProj; 
             set
             {
-                baseProj = value;
-                OnPropertyChanged("BaseProj");
+                if (baseProj != value)
+                { 
+                    baseProj = value;
+                    OnPropertyChanged("BaseProj");
+                }
             }
         }
         public List<Point> Perimeter
@@ -62,7 +70,7 @@ namespace PLCcodeGen
             get => perimeter;
             set => perimeter = value;
         }
-        public List<Item> Items
+        public ObservableCollection<Item> Items
         {
             get => items;
             set => items = value;
@@ -74,6 +82,18 @@ namespace PLCcodeGen
             {
                 cells = value;
                 OnPropertyChanged("Cells");
+            }
+        }
+        #endregion
+
+        #region Property changed
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
         #endregion
@@ -171,14 +191,7 @@ namespace PLCcodeGen
             }
             return false;
         }
-
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
         #endregion
+
     }
 }

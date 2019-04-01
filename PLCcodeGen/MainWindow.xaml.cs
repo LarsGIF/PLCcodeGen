@@ -20,7 +20,7 @@ namespace PLCcodeGen
     /// </summary>
     public partial class MainWindow : Window
     {
-        Object SelectedItem;
+        // Object SelectedItem;
 
         public MainWindow()
         {
@@ -29,7 +29,11 @@ namespace PLCcodeGen
         }
 
         #region File Menu
-        private void NewProject_Click(object sender, RoutedEventArgs e)
+        private void NewCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             switch (((App)Application.Current).MyProjects.Count)
             {
@@ -63,7 +67,11 @@ namespace PLCcodeGen
             }
         }
 
-        private void Open_Click(object sender, RoutedEventArgs e)
+        private void OpenCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Project prj;
 
@@ -79,7 +87,11 @@ namespace PLCcodeGen
                     "Project Open", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
-        private void Close_Click(object sender, RoutedEventArgs e)
+        private void CloseCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void CloseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (((App)Application.Current).MyProjects.Count > 0)
             {
@@ -104,7 +116,11 @@ namespace PLCcodeGen
                     "Close project", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private void SaveCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (((App)Application.Current).MyProjects.Count == 1)
                 ((App)Application.Current).MyProjects.ElementAt(0).SaveProject();
@@ -118,10 +134,16 @@ namespace PLCcodeGen
         #endregion
 
         #region Edit menu
-        private void AddCell_Click(object sender, RoutedEventArgs e) {
+        private void AddCellCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (((App)Application.Current).MyProjects.Count)==1;
+        }
+        private void AddCellCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
             switch (((App)Application.Current).MyProjects.Count)
             { 
                 case 0:
+                    // This command should be disabled when Count is 0.
                     MessageBox.Show(
                         "There is no open project!\nPlese create or open a project to continue.",
                         "Add cell", MessageBoxButton.OK, MessageBoxImage.Exclamation);
@@ -131,7 +153,7 @@ namespace PLCcodeGen
                     break;
                 default:
                     MessageBox.Show(
-                        "More than one project is open!\nPlease close all projects and create or open a new to continue.",
+                        "None or too many projects open!\nPlease close all projects and create or open a new to continue.",
                         "Add cell", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 break;
             }
@@ -140,9 +162,10 @@ namespace PLCcodeGen
 
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            SelectedItem = e.NewValue;
-            currentItem.Content = SelectedItem;
+            //SelectedItem = e.NewValue;
+            currentItem.Content = e.NewValue; //SelectedItem;
         }
+
     }
 
     public class PlcItemTemplateSelector : DataTemplateSelector

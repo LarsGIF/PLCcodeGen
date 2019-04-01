@@ -20,9 +20,12 @@ namespace PLCcodeGen
     /// </summary>
     public partial class NewProjectDlg : Window
     {
+        Project project = new Project();
+
         public NewProjectDlg()
         {
             InitializeComponent();
+            this.DataContext = project;
             mcpTypeCbo.Items.Add("AZS_12F1T12X");
             mcpTypeCbo.Items.Add("AZS_16F2T24X");
         }
@@ -40,10 +43,7 @@ namespace PLCcodeGen
                     "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
-            Project prj = new Project();
-            prj.LineName = lineNameTxt.Text;
-            prj = (Project)(this.DataContext);
-            ((App)Application.Current).MyProjects.Add(prj);
+            ((App)Application.Current).MyProjects.Add(project);
 
             this.DialogResult = true; // Will also close the dialog.
         }

@@ -63,6 +63,7 @@
     <Compile Include="NewProjectDlg.xaml.cs">
       <DependentUpon>NewProjectDlg.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PcgCommands.cs" />
     <Compile Include="PneuCyl.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Station.cs" />
@@ -112,6 +113,113 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_copy_holo_light.png" />
+    <Resource Include="Properties\ic_menu_cut_holo_light.png" />
+    <Resource Include="Properties\ic_menu_paste_holo_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\6454_48x48x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\4642_48x48x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_cut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_find.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_archive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_close_clear_cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_attachment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_revert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_crop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_block.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_search_holo_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_compose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_notifications.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_play_clip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_camera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_find_holo_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_settings_holo_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_help_holo_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_goto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\ic_menu_preferences.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,6 +8,7 @@ namespace PLCcodeGen
 {
     public class FuncBlock
     {
+        private string instName;
         private string typeName;
         private string ver;
         private CodeType cdeType;
@@ -15,6 +16,11 @@ namespace PLCcodeGen
         private string connRules;
 
         #region  Properties Getters and Setters
+        public string InstName
+        {
+            get => instName;
+            set => instName = value;
+        }
         public string TypeName
         {
             get => typeName;
