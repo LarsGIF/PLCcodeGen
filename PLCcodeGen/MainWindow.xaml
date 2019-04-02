@@ -37,7 +37,8 @@
                 <ListView Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding Items}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Items" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Item" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ItemType}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -48,7 +49,8 @@
             <ListView ItemsSource="{Binding Items}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Items" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Item" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ItemType}"/>
                     </GridView>
                 </ListView.View>
         </ListView>
@@ -58,7 +60,8 @@
             <ListView ItemsSource="{Binding Items}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Items" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Item" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ItemType}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

@@ -10,7 +10,9 @@ namespace PLCcodeGen
     public class Item
     {
         private string name;
-        private ObservableCollection<FuncBlock> fBlocks = new ObservableCollection<FuncBlock>();
+        private TypeOfItem itemType;
+        private Item parentItem;
+        private List<FuncBlock> fBlocks = new List<FuncBlock>();
 
         #region Properties Getters and Setters
         public string Name
@@ -18,7 +20,17 @@ namespace PLCcodeGen
             get => name;
             set => name = value;
         }
-        public ObservableCollection<FuncBlock> FBlocks
+        public TypeOfItem ItemType
+        {
+            get => itemType;
+            set => itemType = value;
+        }
+        public Item ParentItem
+        {
+            get => parentItem;
+            set => parentItem = value;
+        }
+        public List<FuncBlock> FBlocks
         {
             get => fBlocks;
             set => fBlocks = value;
@@ -48,4 +60,19 @@ namespace PLCcodeGen
             return false;
         }
     }
+
+    public enum TypeOfItem {
+        undefined,      // Undefined item (default if not defined)
+        cylinder,       // Cylinder
+        valve,          // Pnematic valve
+        motor,          // Electric motor
+        encapulation,   // Encapsulation (power distribution panel AK, control panel AZ, interface panel AE, manual control panel AS)
+        aGate,          // Access gate
+        hmi,            // HMI
+        hCB,            // Portable HMI connection box
+        ioBlock,        // I/O block
+        mfBlock,        // Multi instance function block
+        sfBlock,        // Single instance function block
+        seqBlock        // SFC function block
+    };
 }
