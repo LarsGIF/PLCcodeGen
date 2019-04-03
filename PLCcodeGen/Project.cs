@@ -11,12 +11,11 @@ using System.Windows.Controls;
 
 namespace PLCcodeGen
 {
+    [Serializable]
     public class Project : INotifyPropertyChanged
     {
-        public Object SelectedItem;
-
         private string lineName;
-        private string projFile;
+        private string projFile ="";
         private string plcName;
         private string baseProj;
         private List<Point> perimeter;
@@ -101,58 +100,10 @@ namespace PLCcodeGen
         #region Constructors
         public Project()
         {
-            this.Cells = new ObservableCollection<Cell>();
+
         }
         #endregion
-
-        public static bool CreateProject(MainWindow mWin)
-        {
-            // Instantiate the dialog box
-            NewProjectDlg dlg = new NewProjectDlg { Owner = mWin };
-            return (dlg.ShowDialog() == true);
-        }
-
-        public bool OpenProject()
-        {
-            // Configure and open file dialog box
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.FileName = ""; // Default file name
-            dlg.DefaultExt = ".pcg"; // Default file extension
-            dlg.Filter = "PLCcodeGen project (.pcg)|*.pcg"; // Filter files by extension
-
-            // Show open file dialog box and process open file dialog box results
-            if (dlg.ShowDialog() == true)
-            {
-                // Open document
-                ProjFile = dlg.FileName;
-                return true;
-            }
-            return false;
-        }
-
-        public void SaveProject()
-        {
-            if (((App)Application.Current).MyProjects.Count == 1)
-            {
-                // Configure save file dialog box
-                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-                dlg.FileName = ProjFile; // Default file name
-                dlg.DefaultExt = ".pcg"; // Default file extension
-                dlg.Filter = "PLCcodeGen project (.pcg)|*.pcg"; // Filter files by extension
-
-                // Show save file dialog box and process save file dialog box results
-                if (dlg.ShowDialog() == true)
-                {
-                    // Save document
-                    ProjFile = dlg.FileName;
-                }
-                else
-                    MessageBox.Show("Project could not be saved!", "Save error");
-            }
-            else
-                MessageBox.Show("No project to save!", "Save error");
-        }
-
+ 
         #region Methods
         public List<Point> CreatePerimeter()
         {
@@ -164,34 +115,6 @@ namespace PLCcodeGen
             perimeter.Add(new Point(150, 100));
             return perimeter;
         }
-
-        public void AddCell()
-        {
-            string cellName = "Cell1";
-
-            // Create a new cell
-            TreeViewItem item = new TreeViewItem()
-            {
-                Header = cellName
-            };
-        }
-
-        public void AddCell(string name)
-        {
-            cells.Add(new Cell(name));
-        }
-
-        public bool RemoveCell(string name)
-        {
-            int idx = cells.IndexOf(new Cell("name"));
-            if (idx >= 0)
-            {
-                cells.RemoveAt(idx);
-                return true;
-            }
-            return false;
-        }
         #endregion
-
     }
 }

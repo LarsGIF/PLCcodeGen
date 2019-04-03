@@ -14,5 +14,27 @@ namespace PLCcodeGen
                     new KeyGesture(Key.A, ModifierKeys.Control)
                 }
             );
+
+        public static readonly RoutedUICommand AddStn = new RoutedUICommand
+            (
+                "Add Stn",
+                "AddStn",
+                typeof(PcgCommands),
+                new InputGestureCollection()
+                {
+                            new KeyGesture(Key.S, ModifierKeys.Control)
+                }
+            );
+
+        public static readonly RoutedUICommand AddItem = new RoutedUICommand
+            (
+                "Add Item",
+                "AddItem",
+                typeof(PcgCommands),
+                new InputGestureCollection()
+                {
+                            new KeyGesture(Key.I, ModifierKeys.Control)
+                }
+            );
     }
 }

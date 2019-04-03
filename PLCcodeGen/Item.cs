@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace PLCcodeGen
 {
+    [Serializable]
     public class Item
     {
         private string name;
@@ -38,27 +39,16 @@ namespace PLCcodeGen
         #endregion
 
         #region Constructors
+        public Item()
+        {
+            this.name = "";
+        }
+
         public Item(string name)
         {
             this.name = name;
         }
         #endregion
-
-        public void AddFBlock(string name)
-        {
-            fBlocks.Add(new FuncBlock(name));
-        }
-
-        public bool RemoveFBlock(string name)
-        {
-            int idx = fBlocks.IndexOf(new FuncBlock(name));
-            if (idx >= 0)
-            {
-                fBlocks.RemoveAt(idx);
-                return true;
-            }
-            return false;
-        }
     }
 
     public enum TypeOfItem {

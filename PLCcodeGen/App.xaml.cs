@@ -61,6 +61,12 @@ namespace PLCcodeGen
             stn020.Items.Add(auCtrl);
             stn020.Items.Add(c1a);
             stn020.Items.Add(c1b);
+            stn020.Items.Add(c1c);
+            v1 = new Item("V1") { ItemType = TypeOfItem.valve };
+            v1.FBlocks.Add(vCtrl3);
+            c1a.ParentItem = v1;
+            c1b.ParentItem = v1;
+            c1c.ParentItem = v1;
             stn020.Items.Add(v1);
             Item g1 = new Item("G1") {ItemType = TypeOfItem.aGate};
             Item ah1 = new Item("AH1") {ItemType = TypeOfItem.hCB};
@@ -97,7 +103,6 @@ namespace PLCcodeGen
             proj.Items.Add(az1);
             proj.Items.Add(dh1);
             myProjects.Add(proj);
-            
         }
     }
 }

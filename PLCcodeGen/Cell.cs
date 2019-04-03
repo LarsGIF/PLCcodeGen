@@ -8,6 +8,7 @@ using System.Windows;
 
 namespace PLCcodeGen
 {
+    [Serializable]
     public class Cell
     {
         private string name;
@@ -39,42 +40,15 @@ namespace PLCcodeGen
         #endregion
 
         #region Constructors
+        public Cell()
+        {
+            this.name = "";
+        }
+
         public Cell(string name)
         {
             this.name = name;
         }
         #endregion
-
-        public void AddItem(string name)
-        {
-            items.Add(new Item(name));
-        }
-
-        public bool RemoveItem(string name)
-        {
-            int idx = items.IndexOf(new Item(name));
-            if (idx >= 0)
-            {
-                items.RemoveAt(idx);
-                return true;
-            }
-            return false;
-        }
-
-        public void AddStation(string name)
-        {
-            stations.Add(new Station(name));
-        }
-
-        public bool RemoveStation(string name)
-        {
-            int idx = stations.IndexOf(new Station(name));
-            if (idx >= 0)
-            {
-                stations.RemoveAt(idx);
-                return true;
-            }
-            return false;
-        }
     }
 }

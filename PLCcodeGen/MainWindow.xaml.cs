@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +22,7 @@ namespace PLCcodeGen
     /// </summary>
     public partial class MainWindow : Window
     {
-        // Object SelectedItem;
+        Object SelectedItem;
 
         public MainWindow()
         {
@@ -38,7 +40,7 @@ namespace PLCcodeGen
             switch (((App)Application.Current).MyProjects.Count)
             {
                 case 0:
-                    Project.CreateProject(this);
+                    NewProject();
                     break;
                 case 1:
                     switch (MessageBox.Show(
@@ -46,14 +48,14 @@ namespace PLCcodeGen
                         "New project", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
                     {
                         case MessageBoxResult.Yes:
-                            ((App)Application.Current).MyProjects.ElementAt(0).SaveProject();
+                            SaveProject();
                             break;
                         case MessageBoxResult.No:
                             break;
                         case MessageBoxResult.Cancel:
                             return;
                     }
-                    if (Project.CreateProject(this))
+                    if (NewProject())
                     {
                         // You will now have two projects in the tree. Remove the old one.
                         ((App)Application.Current).MyProjects.RemoveAt(0);
@@ -62,7 +64,7 @@ namespace PLCcodeGen
                 default:
                     MessageBox.Show(
                         "More than one project exists!\nPlease close current projects to continue.", 
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
             }
         }
@@ -78,8 +80,32 @@ namespace PLCcodeGen
             if (((App)Application.Current).MyProjects.Count == 0)
             {
                 prj = new Project();
-                if(prj.OpenProject())
-                    ((App)Application.Current).MyProjects.Add(prj);
+                //(prj.OpenProject()){
+                // Configure and open file dialog box
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.FileName = ""; // Default file name
+                dlg.DefaultExt = ".pcg"; // Default file extension
+                dlg.Filter = "PLCcodeGen|*.pcg|All files (*.*)|*.*"; // Filter files by extension
+
+                // Show open file dialog box and process open file dialog box results
+                if (dlg.ShowDialog() == true)
+                {
+                    // Open document
+                    prj.ProjFile = dlg.FileName;
+                    XmlSerializer serializer = new XmlSerializer(typeof(Project));
+                    try { 
+                        using (FileStream fileStream = new FileStream(dlg.FileName, FileMode.Open))
+                        {
+                            prj = (Project)serializer.Deserialize(fileStream);
+                        }
+                        ((App)Application.Current).MyProjects.Add(prj);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Failed to open file!", "File Open Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Console.Write(ex.StackTrace);
+                    }
+                }
             }
             else
                 MessageBox.Show(
@@ -100,7 +126,7 @@ namespace PLCcodeGen
                     "Close project", MessageBoxButton.YesNoCancel, MessageBoxImage.Question))
                 {
                     case MessageBoxResult.Yes:
-                        ((App)Application.Current).MyProjects.ElementAt(0).SaveProject();
+                        SaveProject();
                         break;
                     case MessageBoxResult.No:
                         break;
@@ -122,12 +148,7 @@ namespace PLCcodeGen
         }
         private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (((App)Application.Current).MyProjects.Count == 1)
-                ((App)Application.Current).MyProjects.ElementAt(0).SaveProject();
-            else
-                MessageBox.Show(
-                    "There is no project to save!",
-                    "Save project", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            SaveProject();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
@@ -136,36 +157,107 @@ namespace PLCcodeGen
         #region Edit menu
         private void AddCellCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (((App)Application.Current).MyProjects.Count)==1;
+            e.CanExecute = (((App)Application.Current).MyProjects.Count)==1 
+                && SelectedItem != null && (SelectedItem.GetType().ToString() == "PLCcodeGen.Project");
         }
         private void AddCellCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {         
+            //TODO: Add dialog to enter name of cell
+            ((Project)SelectedItem).Cells.Add(new Cell("Cxxx"));
+        }
+
+        private void AddStnCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            switch (((App)Application.Current).MyProjects.Count)
-            { 
-                case 0:
-                    // This command should be disabled when Count is 0.
-                    MessageBox.Show(
-                        "There is no open project!\nPlese create or open a project to continue.",
-                        "Add cell", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            e.CanExecute = (((App)Application.Current).MyProjects.Count) == 1
+                && SelectedItem != null && (SelectedItem.GetType().ToString() == "PLCcodeGen.Cell");
+        }
+        private void AddStnCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            //TODO: Add dialog to enter name of station
+            ((Cell)SelectedItem).Stations.Add(new Station("Sxxx"));
+        }
+
+        private void AddItemCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ((App)Application.Current).MyProjects.Count == 1 && SelectedItem != null;
+        }
+        private void AddItemCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            //TODO: Add dialog to enter name of item
+            switch (SelectedItem.GetType().ToString()) {
+                case "PLCcodeGen.Project":
+                    ((Project)SelectedItem).Items.Add(new Item("Ixxx"));
                     break;
-                case 1:
-                    ((App)Application.Current).MyProjects.ElementAt(0).AddCell();
+                case "PLCcodeGen.Cell":
+                    ((Cell)SelectedItem).Items.Add(new Item("Ixxx"));
                     break;
-                default:
-                    MessageBox.Show(
-                        "None or too many projects open!\nPlease close all projects and create or open a new to continue.",
-                        "Add cell", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                break;
+                case "PLCcodeGen.Station":
+                    ((Station)SelectedItem).Items.Add(new Item("Ixxx"));
+                    break;
+            }
+        }
+        #endregion
+
+        #region helper methods
+        public bool NewProject()
+        {
+            // Instantiate the dialog box
+            NewProjectDlg dlg = new NewProjectDlg { Owner = this };
+            return (dlg.ShowDialog() == true);
+        }
+
+        private void SaveProject()
+        {
+            if (((App)Application.Current).MyProjects.Count != 1)
+            {
+                MessageBox.Show("No project to save!", "Save error");
+            }
+            else
+            {
+                Project curProj = ((App)Application.Current).MyProjects[0];
+                // Configure save file dialog box
+                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+                dlg.DefaultExt = ".pcg"; // Default file extension
+                dlg.Filter = "PLCcodeGen|*.pcg"; // Filter files by extension
+                if (curProj.ProjFile == "")
+                { dlg.FileName = curProj.LineName; } // Default file name                
+                else
+                { dlg.FileName = curProj.ProjFile; }
+
+                // Show save file dialog box and process results
+                if (dlg.ShowDialog() == true)
+                {
+                    // Save file name
+                    curProj.ProjFile = dlg.FileName;
+
+                    // Create a file stream;
+                    XmlSerializer xs = new XmlSerializer(typeof(Project));
+                    using (Stream stream = new FileStream(curProj.ProjFile, FileMode.Create, FileAccess.Write))
+                    {
+                        try
+                        {
+                            // Write current project to file
+                            xs.Serialize(stream, curProj);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.Write(ex.StackTrace);
+                            MessageBox.Show("Project could not be saved!", "Save error",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+                else MessageBox.Show("Project could not be saved!", "Save error", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion
 
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            //SelectedItem = e.NewValue;
-            currentItem.Content = e.NewValue; //SelectedItem;
+            SelectedItem = e.NewValue;
+            currentItem.Content = e.NewValue;
         }
-
     }
 
     public class PlcItemTemplateSelector : DataTemplateSelector

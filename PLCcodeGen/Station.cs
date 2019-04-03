@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace PLCcodeGen
 {
+    [Serializable]
     public class Station
     {
         private string name;
@@ -26,26 +27,15 @@ namespace PLCcodeGen
         #endregion
 
         #region Constructors
+        public Station()
+        {
+            this.name = "";
+        }
+
         public Station(string name)
         {
             this.name = name;
         }
         #endregion
-
-        public void AddItem(string name)
-        {
-            Items.Add(new Item(name));
-        }
-
-        public bool RemoveItem(string name)
-        {
-            int idx = Items.IndexOf(new Item(name));
-            if (idx >= 0)
-            {
-                Items.RemoveAt(idx);
-                return true;
-            }
-            return false;
-        }
     }
 }

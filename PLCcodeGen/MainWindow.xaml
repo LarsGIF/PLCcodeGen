@@ -78,7 +78,8 @@
 
         <!-- Edit Menu -->
         <CommandBinding Command="local:PcgCommands.AddCell" Executed="AddCellCommand_Executed" CanExecute="AddCellCommand_CanExecute"/>
-    
+        <CommandBinding Command="local:PcgCommands.AddStn" Executed="AddStnCommand_Executed" CanExecute="AddStnCommand_CanExecute"/>
+        <CommandBinding Command="local:PcgCommands.AddItem" Executed="AddItemCommand_Executed" CanExecute="AddItemCommand_CanExecute"/>
     </Window.CommandBindings>
     
     <DockPanel >
@@ -97,8 +98,8 @@
                 <MenuItem Command="Paste"/>
                 <Separator/>
                 <MenuItem Command="local:PcgCommands.AddCell"/>
-                <MenuItem Header="Add _Station"/>
-                <MenuItem Header="Add _Item"/>
+                <MenuItem Command="local:PcgCommands.AddStn"/>
+                <MenuItem Command="local:PcgCommands.AddItem"/>
             </MenuItem>
             <MenuItem Header="_View">
             </MenuItem>
@@ -136,6 +137,7 @@
         </ToolBarTray>
         
         <StatusBar Name="Statusbar" DockPanel.Dock="Bottom">
+            <!-- Dummy textfield. To be implemented -->
             <StatusBarItem>
                 <TextBlock Name="lblCursorPosition"/>
             </StatusBarItem>
@@ -160,8 +162,6 @@
                         DataType="{x:Type local:Project}" ItemsSource="{Binding Cells}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding LineName}"/>
-                            <TextBlock Text=", PLC: "/>
-                            <TextBlock Text="{Binding PlcName}"/>
                         </StackPanel>
                     </HierarchicalDataTemplate>
                     <HierarchicalDataTemplate DataType="{x:Type local:Cell}" ItemsSource="{Binding Stations}">

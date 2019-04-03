@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PLCcodeGen
 {
+    [Serializable]
     public class FuncBlock
     {
         private string instName;
@@ -49,6 +50,11 @@ namespace PLCcodeGen
         #endregion
 
         #region Constructors
+        public FuncBlock()
+        {
+            this.typeName = "";
+        }
+
         public FuncBlock(string typeName)
         {
             this.typeName = typeName;
