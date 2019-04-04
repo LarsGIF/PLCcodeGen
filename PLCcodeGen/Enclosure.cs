@@ -9,7 +9,7 @@ namespace PLCcodeGen
     class Enclosure
     {
         String name;
-        List<FuncBlock> fBlocks;
+        List<FuncBlock> fBlocks = new List<FuncBlock>();
 
         public Enclosure(string name)
         {
@@ -17,21 +17,6 @@ namespace PLCcodeGen
         }
 
         public string Name { get => name; set => name = value; }
-
-        public void AddFBlock(String name)
-        {
-            fBlocks.Add(new FuncBlock(name));
-        }
-
-        public bool RemoveFBlock(String name)
-        {
-            int idx = fBlocks.FindIndex(x => x.TypeName == name);
-            if (idx >= 0)
-            {
-                fBlocks.RemoveAt(idx);
-                return true;
-            }
-            return false;
-        }
+        public List<FuncBlock> FBlocks { get => fBlocks; set => fBlocks = value; }
     }
 }

@@ -1,0 +1,46 @@
+﻿<Window x:Class="PLCcodeGen.SettingsDlg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PLCcodeGen"
+        xmlns:s="clr-namespace:PLCcodeGen.Properties"
+        mc:Ignorable="d"
+        Title="Settings" Height="150" Width="410">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="AppSettings" ObjectType="{x:Type s:Settings}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource AppSettings}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Default project path:" 
+            HorizontalAlignment="Right" VerticalAlignment="Center" Width="119"/>
+        <TextBox Name="defPath" Text="{Binding Path=DefaultProjectPath}" Margin="5"
+            Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"/>
+        <Label Content="Last project opened:" 
+            Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Width="120"/>
+        <TextBox Name="lastOpenedProj" Text="{Binding Path=PreviousProjectPath}"  Margin="5"
+            Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"/>
+        <CheckBox Name="loadPrevProj" Content="Load last project at start" IsChecked="{Binding Path=LoadPreviousProject}" 
+            Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Name="saveSettingsBtn" Content="Save" Command="" Grid.Column="1" Height="20" Width="100" Click="SaveSettingsBtn_Click"/>
+            <Button Name="cancelBtn" Content="Cancel" Command="" Grid.Column="3" Height="20" Width="100" Click="CancelBtn_Click"/>
+        </Grid>
+    </Grid>
+</Window>

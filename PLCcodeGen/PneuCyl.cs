@@ -9,7 +9,6 @@ namespace PLCcodeGen
 {
     class PneuCyl : Item
     {
-        string name;
         string valve;
         string sensBxF;
         string sensBxR;
@@ -20,8 +19,9 @@ namespace PLCcodeGen
             if (Name[0] == 'C')
             {
                 Name.Replace('C', 'c');
-                this.name = Name;
+                this.Name = Name;
             }
+
             if (Name[0] == 'c')
             {
                 String[] split = Regex.Split(Name, @"\w*\d*\w*");
@@ -29,7 +29,6 @@ namespace PLCcodeGen
                 this.sensBxF = "Bc" + split[1] + split[2] + "F";
                 this.sensBxR = "Bc" + split[1] + split[2] + "R";
             }
-            else ;
         }
 
         public PneuCyl(string name, string valve, string sensBxF, string sensBxR) : base(name)
@@ -39,7 +38,6 @@ namespace PLCcodeGen
             this.sensBxR = sensBxR;
         }
 
-        public string Name { get => name; set => name = value; }
         public string Valve { get => valve; set => valve = value; }
         public string SensBxF { get => sensBxF; set => sensBxF = value; }
         public string SensBxR { get => sensBxR; set => sensBxR = value; }

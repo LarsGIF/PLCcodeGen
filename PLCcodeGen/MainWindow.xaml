@@ -80,6 +80,15 @@
         <CommandBinding Command="local:PcgCommands.AddCell" Executed="AddCellCommand_Executed" CanExecute="AddCellCommand_CanExecute"/>
         <CommandBinding Command="local:PcgCommands.AddStn" Executed="AddStnCommand_Executed" CanExecute="AddStnCommand_CanExecute"/>
         <CommandBinding Command="local:PcgCommands.AddItem" Executed="AddItemCommand_Executed" CanExecute="AddItemCommand_CanExecute"/>
+
+        <!-- View Menu -->
+
+        <!-- Tools Menu -->
+        <CommandBinding Command="local:PcgCommands.Settings" Executed="SettingsCommand_Executed" CanExecute="SettingsCommand_CanExecute"/>
+
+        <!-- Library Menu -->
+        
+        <!-- Help Menu -->
     </Window.CommandBindings>
     
     <DockPanel >
@@ -102,6 +111,9 @@
                 <MenuItem Command="local:PcgCommands.AddItem"/>
             </MenuItem>
             <MenuItem Header="_View">
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Command="local:PcgCommands.Settings"/>
             </MenuItem>
             <MenuItem Header="_Library">
             </MenuItem>

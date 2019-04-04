@@ -66,6 +66,10 @@
     <Compile Include="PcgCommands.cs" />
     <Compile Include="PneuCyl.cs" />
     <Compile Include="Project.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="SettingsDlg.xaml.cs">
+      <DependentUpon>SettingsDlg.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Station.cs" />
     <Compile Include="ValveIsland.cs" />
     <Page Include="MainWindow.xaml">
@@ -84,6 +88,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NewProjectDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsDlg.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

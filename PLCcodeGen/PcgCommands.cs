@@ -22,7 +22,7 @@ namespace PLCcodeGen
                 typeof(PcgCommands),
                 new InputGestureCollection()
                 {
-                            new KeyGesture(Key.S, ModifierKeys.Control)
+                    new KeyGesture(Key.S, ModifierKeys.Control)
                 }
             );
 
@@ -33,7 +33,18 @@ namespace PLCcodeGen
                 typeof(PcgCommands),
                 new InputGestureCollection()
                 {
-                            new KeyGesture(Key.I, ModifierKeys.Control)
+                    new KeyGesture(Key.I, ModifierKeys.Control)
+                }
+            );
+
+        public static readonly RoutedUICommand Settings = new RoutedUICommand
+            (
+                "Edit Settings",
+                "Settings",
+                typeof(PcgCommands),
+                new InputGestureCollection()
+                {
+                    new KeyGesture(Key.A, ModifierKeys.Control)
                 }
             );
     }

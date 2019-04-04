@@ -1,11 +1,15 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Xml.Serialization;
 using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using PLCcodeGen.Properties;
 
 namespace PLCcodeGen
 {
@@ -26,6 +30,29 @@ namespace PLCcodeGen
 
         void AppStartup(object sender, StartupEventArgs args)
         {
+            Project prj;
+
+            if (Settings.Default.LoadPreviousProject)
+            {
+                if (myProjects.Count == 0)
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(Project));
+                    try
+                    {
+                        using (FileStream fileStream = new FileStream(Settings.Default.PreviousProjectPath, FileMode.Open))
+                        {
+                            prj = (Project)serializer.Deserialize(fileStream);
+                        }
+                        ((App)Application.Current).MyProjects.Add(prj);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Failed to open previous file!", "File Open Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Console.Write(ex.StackTrace);
+                    }
+                }
+            } 
+            /*
             // Temporarily initialize the project tree with some data for testing
             Item auCtrl = new Item("S010au") {ItemType = TypeOfItem.mfBlock};
             FuncBlock seqFB = new FuncBlock("S010seq");
@@ -103,6 +130,7 @@ namespace PLCcodeGen
             proj.Items.Add(az1);
             proj.Items.Add(dh1);
             myProjects.Add(proj);
-        }
+            */
+        } 
     }
 }

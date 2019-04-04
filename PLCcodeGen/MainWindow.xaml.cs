@@ -151,7 +151,16 @@ namespace PLCcodeGen
             SaveProject();
         }
 
-        private void Exit_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            if (((App)Application.Current).MyProjects.Count == 1)
+            {
+                // Save current projcet path to User Default Settings
+                Properties.Settings.Default.PreviousProjectPath = ((App)Application.Current).MyProjects[0].ProjFile;
+                Properties.Settings.Default.Save();
+            }                        
+            Application.Current.Shutdown();
+        }
         #endregion
 
         #region Edit menu
@@ -195,6 +204,21 @@ namespace PLCcodeGen
                     ((Station)SelectedItem).Items.Add(new Item("Ixxx"));
                     break;
             }
+        }
+        #endregion
+
+        #region Tools menu
+        private void SettingsCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void SettingsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SettingsDlg dlg = new SettingsDlg {
+                Owner = this,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            dlg.ShowDialog();
         }
         #endregion
 

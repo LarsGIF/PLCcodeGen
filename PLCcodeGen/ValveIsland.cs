@@ -13,6 +13,9 @@ namespace PLCcodeGen
         List<Module> modules;
         List<string> valves;
 
+        internal List<Module> Modules { get => modules; set => modules = value; }
+        public List<string> Valves { get => valves; set => valves = value; }
+
         public ValveIsland(string name, bool baseConfig) : base(name)
         {
             if (baseConfig)
@@ -77,27 +80,7 @@ namespace PLCcodeGen
         }
 
         public string Name { get => name; set => name = value; }
-
-        public void AddIO(string name, IOtype ioType,string adr, string varType,string comment)
-        {
-            IO io = new IO(name);
-            io.IoType = ioType;
-            io.Adr = adr;
-            io.VarType = varType;
-            io.Comment = comment;
-            ios.Add(io);
-        }
-
-        public bool RemoveIO(string name)
-        {
-            int idx = ios.FindIndex(x => x.Name == name);
-            if (idx >= 0)
-            {
-                ios.RemoveAt(idx);
-                return true;
-            }
-            return false;
-        }
+        internal List<IO> Ios { get => ios; set => ios = value; }
     }
 
     class IO
