@@ -8,13 +8,14 @@ namespace PLCcodeGen
 {
     public enum IOtype { inp, outp, inOut}
 
+    [Serializable]
     class ValveIsland : Item
     {
         List<Module> modules;
-        List<string> valves;
+        List<Valve> valves;
 
         internal List<Module> Modules { get => modules; set => modules = value; }
-        public List<string> Valves { get => valves; set => valves = value; }
+        public List<Valve> Valves { get => valves; set => valves = value; }
 
         public ValveIsland(string name, bool baseConfig) : base(name)
         {
@@ -24,7 +25,7 @@ namespace PLCcodeGen
                 // one input module, one safety output module and one pilot air valve
                 modules.Add(new Module(""));
                 modules.Add(new Module(""));
-                valves.Add("V0");
+                valves.Add(new Valve("V0"));
             }
         }
 
@@ -55,7 +56,7 @@ namespace PLCcodeGen
 
         public void AddValve()
         {
-            valves.Add("V" + valves.Count);
+            valves.Add(new Valve("V" + valves.Count));
         }
 
         public bool RemoveValve()
@@ -69,6 +70,7 @@ namespace PLCcodeGen
         }
     }
 
+    [Serializable]
     class Module
     {
         string name;
@@ -83,6 +85,7 @@ namespace PLCcodeGen
         internal List<IO> Ios { get => ios; set => ios = value; }
     }
 
+    [Serializable]
     class IO
     {
         string name;
@@ -91,15 +94,15 @@ namespace PLCcodeGen
         string varType;
         string comment;
 
-        public IO(string name)
-        {
-            this.name = name;
-        }
-
         public string Name { get => name; set => name = value; }
         public IOtype IoType { get => ioType; set => ioType = value; }
         public string Adr { get => adr; set => adr = value; }
         public string VarType { get => varType; set => varType = value; }
         public string Comment { get => comment; set => comment = value; }
+
+        public IO(string name)
+        {
+            this.name = name;
+        }
     }
 }

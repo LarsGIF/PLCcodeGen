@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLCcodeGen"
         mc:Ignorable="d"
-        Title="PLC Code Gen" 
+        Title="PLC Code Generator" 
         Height="450" 
         Width="800">
     

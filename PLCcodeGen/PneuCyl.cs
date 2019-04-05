@@ -7,15 +7,15 @@ using System.Text.RegularExpressions;
 
 namespace PLCcodeGen
 {
+    [Serializable]
     class PneuCyl : Item
     {
-        string valve;
-        string sensBxF;
-        string sensBxR;
+        private string sensBxF;
+        private string sensBxR;
 
         public PneuCyl(string name) : base(name)
         {
-            String Name = name;
+            base.Name = name;
             if (Name[0] == 'C')
             {
                 Name.Replace('C', 'c');
@@ -25,7 +25,6 @@ namespace PLCcodeGen
             if (Name[0] == 'c')
             {
                 String[] split = Regex.Split(Name, @"\w*\d*\w*");
-                this.valve = "V" + split[1];
                 this.sensBxF = "Bc" + split[1] + split[2] + "F";
                 this.sensBxR = "Bc" + split[1] + split[2] + "R";
             }
@@ -33,12 +32,10 @@ namespace PLCcodeGen
 
         public PneuCyl(string name, string valve, string sensBxF, string sensBxR) : base(name)
         {
-            this.valve = valve;
             this.sensBxF = sensBxF;
             this.sensBxR = sensBxR;
         }
 
-        public string Valve { get => valve; set => valve = value; }
         public string SensBxF { get => sensBxF; set => sensBxF = value; }
         public string SensBxR { get => sensBxR; set => sensBxR = value; }
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PLCcodeGen
 {
+    [Serializable]
     class Enclosure
     {
         String name;

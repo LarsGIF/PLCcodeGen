@@ -9,23 +9,17 @@ namespace PLCcodeGen
     [Serializable]
     public class FuncBlock
     {
-        private string instName;
-        private string typeName;
+        private string name;
         private string ver;
         private CodeType cdeType;
         private string def;
         private string connRules;
 
         #region  Properties Getters and Setters
-        public string InstName
+        public string Name
         {
-            get => instName;
-            set => instName = value;
-        }
-        public string TypeName
-        {
-            get => typeName;
-            set => typeName = value;
+            get => name;
+            set => name = value;
         }
         public string Ver
         {
@@ -52,17 +46,17 @@ namespace PLCcodeGen
         #region Constructors
         public FuncBlock()
         {
-            this.typeName = "";
+            this.name = "";
         }
 
-        public FuncBlock(string typeName)
+        public FuncBlock(string name)
         {
-            this.typeName = typeName;
+            this.name = name;
         }
 
         public FuncBlock(string name, string ver, CodeType cdeType, string def, string connRules)
         {
-            this.typeName = name;
+            this.name = name;
             this.ver = ver;
             this.cdeType = cdeType;
             this.def = def;

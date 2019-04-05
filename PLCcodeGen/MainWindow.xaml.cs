@@ -23,6 +23,7 @@ namespace PLCcodeGen
     public partial class MainWindow : Window
     {
         Object SelectedItem;
+        Item newItem;
 
         public MainWindow()
         {
@@ -193,15 +194,26 @@ namespace PLCcodeGen
         private void AddItemCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //TODO: Add dialog to enter name of item
-            switch (SelectedItem.GetType().ToString()) {
+            string parentObjType = SelectedItem.GetType().ToString();
+            AddItemDlg dlg = new AddItemDlg
+            {
+                Owner = this,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Tag = parentObjType
+            };
+            dlg.ShowDialog();
+
+            this.newItem = new PneuCyl("Cxxx");
+            
+            switch (parentObjType) {
                 case "PLCcodeGen.Project":
-                    ((Project)SelectedItem).Items.Add(new Item("Ixxx"));
+                    ((Project)SelectedItem).Items.Add(newItem);
                     break;
                 case "PLCcodeGen.Cell":
-                    ((Cell)SelectedItem).Items.Add(new Item("Ixxx"));
+                    ((Cell)SelectedItem).Items.Add(newItem);
                     break;
                 case "PLCcodeGen.Station":
-                    ((Station)SelectedItem).Items.Add(new Item("Ixxx"));
+                    ((Station)SelectedItem).Items.Add(newItem);
                     break;
             }
         }
@@ -241,31 +253,39 @@ namespace PLCcodeGen
                 Project curProj = ((App)Application.Current).MyProjects[0];
                 // Configure save file dialog box
                 Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+
+                if (Properties.Settings.Default.DefaultProjectPath == null || 
+                    Properties.Settings.Default.DefaultProjectPath == "")
+                {} // Use system default Documents directory               
+                else
+                { dlg.InitialDirectory = Properties.Settings.Default.DefaultProjectPath; }
+
                 dlg.DefaultExt = ".pcg"; // Default file extension
                 dlg.Filter = "PLCcodeGen|*.pcg"; // Filter files by extension
-                if (curProj.ProjFile == "")
-                { dlg.FileName = curProj.LineName; } // Default file name                
+
+                if (curProj.ProjFile == null || curProj.ProjFile == "")
+                { dlg.FileName = curProj.LineName; } // Line name is default file name                
                 else
                 { dlg.FileName = curProj.ProjFile; }
 
                 // Show save file dialog box and process results
                 if (dlg.ShowDialog() == true)
                 {
-                    // Save file name
-                    curProj.ProjFile = dlg.FileName;
-
                     // Create a file stream;
                     XmlSerializer xs = new XmlSerializer(typeof(Project));
                     using (Stream stream = new FileStream(curProj.ProjFile, FileMode.Create, FileAccess.Write))
                     {
                         try
                         {
-                            // Write current project to file
+                            // Write current project to file in XML format
                             xs.Serialize(stream, curProj);
+
+                            // Save file name
+                            curProj.ProjFile = dlg.FileName;
                         }
-                        catch (Exception ex)
+                        catch (Exception e)
                         {
-                            Console.Write(ex.StackTrace);
+                            Console.Write(e.StackTrace);
                             MessageBox.Show("Project could not be saved!", "Save error",
                                 MessageBoxButton.OK, MessageBoxImage.Error);
                         }

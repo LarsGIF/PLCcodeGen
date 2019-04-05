@@ -26,8 +26,10 @@ namespace PLCcodeGen
 
         private void SaveSettingsBtn_Click(object sender, RoutedEventArgs e)
         {
+            // The Settings class is auto generated and do not support INotifyPropertyChanged.
+            // Save modifications by code.
             Properties.Settings.Default.DefaultProjectPath = this.defPath.Text;
-            Properties.Settings.Default.PreviousProjectPath = this.lastOpenedProj.Text;
+            Properties.Settings.Default.PreviousProjectPath = this.lastOpenedProj.Text; // Overwritten when app is closed.
             Properties.Settings.Default.LoadPreviousProject = (this.loadPrevProj.IsChecked == true);
             Properties.Settings.Default.Save();
             this.Close();

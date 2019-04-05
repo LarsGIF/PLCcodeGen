@@ -1,19 +1,24 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PLCcodeGen
 {
-    public static class PcgCommands
+    class PcgCommands
     {
         public static readonly RoutedUICommand AddCell = new RoutedUICommand
-            (
-                "Add Cell",
-                "AddCell",
-                typeof(PcgCommands),
-                new InputGestureCollection()
-                {
+    (
+        "Add Cell",
+        "AddCell",
+        typeof(PcgCommands),
+        new InputGestureCollection()
+        {
                     new KeyGesture(Key.A, ModifierKeys.Control)
-                }
-            );
+        }
+    );
 
         public static readonly RoutedUICommand AddStn = new RoutedUICommand
             (
@@ -49,3 +54,4 @@ namespace PLCcodeGen
             );
     }
 }
+

@@ -12,7 +12,6 @@ namespace PLCcodeGen
     {
         private string name;
         private TypeOfItem itemType;
-        private Item parentItem;
         private List<FuncBlock> fBlocks = new List<FuncBlock>();
 
         #region Properties Getters and Setters
@@ -26,11 +25,7 @@ namespace PLCcodeGen
             get => itemType;
             set => itemType = value;
         }
-        public Item ParentItem
-        {
-            get => parentItem;
-            set => parentItem = value;
-        }
+
         public List<FuncBlock> FBlocks
         {
             get => fBlocks;
@@ -56,7 +51,7 @@ namespace PLCcodeGen
         cylinder,       // Cylinder
         valve,          // Pnematic valve
         motor,          // Electric motor
-        encapulation,   // Encapsulation (power distribution panel AK, control panel AZ, interface panel AE, manual control panel AS)
+        encapsulation,  // Encapsulation (power distribution panel AK, control panel AZ, interface panel AE, manual control panel AS)
         aGate,          // Access gate
         hmi,            // HMI
         hCB,            // Portable HMI connection box
