@@ -19,20 +19,26 @@ namespace PLCcodeGen
     /// </summary>
     public partial class AddItemDlg : Window
     {
-        string parentType;
-        TypeOfItem typeOfItem;
-
         public AddItemDlg()
         {
             InitializeComponent();
         }
 
-        public TypeOfItem TypeOfItem { get => typeOfItem; set => typeOfItem = value; }
-
         protected override void OnContentRendered(EventArgs e)
         {
             base.OnContentRendered(e);
-            parentType = Tag.ToString();
+            this.Title = "Add " + Tag.ToString();
+            itemLbl.Content = Tag.ToString() + " name:";
+        }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
         }
     }
 }

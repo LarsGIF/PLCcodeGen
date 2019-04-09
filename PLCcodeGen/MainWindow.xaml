@@ -12,11 +12,12 @@
     <Window.Resources>
         <!-- 
         Below data templates are used by the TemplateSelector used
-        for the ContentControl in Grid on Grid.Row="2" Grid.Column="0" 
+        for the currentItem ContentControl in Grid on Grid.Row="2" Grid.Column="0" 
         -->
-        <local:PlcItemTemplateSelector x:Key="plcItemTemplateSelector"/>
-        
-        <DataTemplate x:Key="ProjItemTemplate">
+        <local:ItemTemplateSelector x:Key="itemTemplateSelector"/>
+        <local:DetailTemplateSelector x:Key="detailTemplateSelector"/>
+
+        <DataTemplate x:Key="ProjItemTemplate" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20"/>
@@ -34,7 +35,7 @@
                 <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding BaseProj}"/>
                 <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,5,0" HorizontalAlignment="Right">Project file:</TextBlock>
                 <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding ProjFile}"/>
-                <ListView Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding Items}">
+                <ListView Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding Items}" SelectionChanged="ListView_SelectionChanged">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Item" DisplayMemberBinding="{Binding Name}"/>
@@ -46,7 +47,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="CellItemTemplate">
-            <ListView ItemsSource="{Binding Items}">
+            <ListView ItemsSource="{Binding Items}" SelectionChanged="ListView_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Item" DisplayMemberBinding="{Binding Name}"/>
@@ -57,7 +58,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="StnItemTemplate">
-            <ListView ItemsSource="{Binding Items}">
+            <ListView ItemsSource="{Binding Items}" SelectionChanged="ListView_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Item" DisplayMemberBinding="{Binding Name}"/>
@@ -66,7 +67,27 @@
                 </ListView.View>
             </ListView>
         </DataTemplate>
-
+        
+        <!-- 
+        Below data templates are used by the TemplateSelector used
+        for the itemDetail ContentControl in Grid on Grid.Row="4" Grid.Column="0" 
+        -->
+        <DataTemplate x:Key="PneuCylTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Sensor Fwd:" Margin="0,0,5,0" HorizontalAlignment="Right"/>
+                <TextBlock Text="{Binding SensBxF}" Grid.Column="1" HorizontalAlignment="Left"/>
+                <TextBlock Text="Sensor Rev:" Grid.Row="1" Margin="0,0,5,0" HorizontalAlignment="Right"/>
+                <TextBlock Text="{Binding SensBxR}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"/>
+            </Grid>
+        </DataTemplate>
     </Window.Resources>
 
     <Window.CommandBindings>
@@ -79,7 +100,11 @@
         <!-- Edit Menu -->
         <CommandBinding Command="local:PcgCommands.AddCell" Executed="AddCellCommand_Executed" CanExecute="AddCellCommand_CanExecute"/>
         <CommandBinding Command="local:PcgCommands.AddStn" Executed="AddStnCommand_Executed" CanExecute="AddStnCommand_CanExecute"/>
-        <CommandBinding Command="local:PcgCommands.AddItem" Executed="AddItemCommand_Executed" CanExecute="AddItemCommand_CanExecute"/>
+        
+        <!-- Add Items Menu-->
+        <CommandBinding Command="local:PcgCommands.AddPneuCyl" Executed="AddPneuCylCommand_Executed" CanExecute="AddPnuCylCommand_CanExecute"/>
+        <CommandBinding Command="local:PcgCommands.AddValve" Executed="AddValveCommand_Executed" CanExecute="AddValveCommand_CanExecute"/>
+        <CommandBinding Command="local:PcgCommands.AddMotor" Executed="AddMotorCommand_Executed" CanExecute="AddMotorCommand_CanExecute"/>
 
         <!-- View Menu -->
 
@@ -108,7 +133,11 @@
                 <Separator/>
                 <MenuItem Command="local:PcgCommands.AddCell"/>
                 <MenuItem Command="local:PcgCommands.AddStn"/>
-                <MenuItem Command="local:PcgCommands.AddItem"/>
+                <MenuItem Header="Add Items">
+                    <MenuItem Command="local:PcgCommands.AddPneuCyl"/>
+                    <MenuItem Command="local:PcgCommands.AddValve"/>
+                    <MenuItem Command="local:PcgCommands.AddMotor"/>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_View">
             </MenuItem>
@@ -160,6 +189,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="5"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="*"/>            
             </Grid.RowDefinitions>
         
             <Grid.ColumnDefinitions>
@@ -192,18 +223,26 @@
 
             <Border Grid.Row="2" BorderBrush="Black" BorderThickness="0.5" Background="Azure">
                 <ContentControl Name="currentItem"  Margin="5"
-                                ContentTemplateSelector="{StaticResource plcItemTemplateSelector}"/>
+                                ContentTemplateSelector="{StaticResource itemTemplateSelector}"/>
             </Border>
-        
-            <GridSplitter Grid.Column="1" Grid.RowSpan="3" Width="5" HorizontalAlignment="Stretch"/>
 
-            <ScrollViewer Grid.Column="2" Grid.RowSpan="3">
+            <GridSplitter Grid.Row="3" Height="5" HorizontalAlignment="Stretch"/>
+
+            <Border Grid.Row="4" BorderBrush="Black" BorderThickness="0.5" Background="Azure">
+                <ContentControl Name="itemDetail"  Margin="5"
+                                ContentTemplateSelector="{StaticResource detailTemplateSelector}"/>
+            </Border>
+           
+            <GridSplitter Grid.Column="1" Grid.RowSpan="5" Width="5" HorizontalAlignment="Stretch"/>
+
+            <ScrollViewer Grid.Column="2" Grid.RowSpan="5">
                 <Viewbox>
                     <Canvas Name="layout" 
                             HorizontalAlignment="Center" VerticalAlignment="Center" 
                             MinHeight="380" MinWidth="670" Height="Auto" Width="Auto"/>
                 </Viewbox>
             </ScrollViewer>
+           
         </Grid>
     </DockPanel>
 </Window>

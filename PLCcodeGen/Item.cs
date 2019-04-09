@@ -50,8 +50,9 @@ namespace PLCcodeGen
         undefined,      // Undefined item (default if not defined)
         cylinder,       // Cylinder
         valve,          // Pnematic valve
+        valveIsland,    // Pnumatic valve island
         motor,          // Electric motor
-        encapsulation,  // Encapsulation (power distribution panel AK, control panel AZ, interface panel AE, manual control panel AS)
+        enclosure,      // Enclosure (power distribution panel AK, control panel AZ, interface panel AE, manual control panel AS)
         aGate,          // Access gate
         hmi,            // HMI
         hCB,            // Portable HMI connection box

@@ -6,91 +6,34 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:PLCcodeGen"
         mc:Ignorable="d"
-        Title="Add Item" Height="450" Width="800">
-    <Window.Resources>
+        Height="120" Width="300">
+    <!--dow.Resources>
         <ObjectDataProvider x:Key="itemTypeEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="local:TypeOfItem"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-    </Window.Resources>
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="AliceBlue">
+    </Window.Resources-->
+    <Grid Margin="10">
+        <!--StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="AliceBlue">
             <Label Content="Select Item type to be added:" Height="25"/>
             <ComboBox Name="itemType" ItemsSource="{Binding Source={StaticResource itemTypeEnum}}" 
-                SelectedItem="{Binding Path=TypeOfItem}" Height="20" Width="100">
+                SelectedItem="{Binding Path=TypeOfItem}" Height="20" Width="100" SelectionChanged="ItemType_SelectionChanged">
             </ComboBox>
+        </StackPanel-->
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Name="itemLbl" HorizontalAlignment="Right"/>
+        <TextBox Name="itemName" Text="" Grid.Column="1" Margin="5" Width="170" HorizontalAlignment="Left"/>
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="addBtn" Content="Add" Margin="5" Width="70" Click="AddBtn_Click"/>
+            <Button Name="cancelBtn" Content="Cancel" Margin="5" Width="70" Click="CancelBtn_Click"/>
         </StackPanel>
-        <TabControl DockPanel.Dock="Top">
-            <TabItem Header="Standard" DataContext="{Binding Source=Item}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Name:" HorizontalAlignment="Right"/>
-                    <TextBox Text="" Grid.Column="1"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Cylinder">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Name:" HorizontalAlignment="Right"/>
-                    <TextBox Text="" Grid.Column="1"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Valve">
-
-            </TabItem>
-            <TabItem Header="Motor">
-
-            </TabItem>
-            <TabItem Header="Encapsulation">
-
-            </TabItem>
-            <TabItem Header="Access Gate">
-
-            </TabItem>
-            <TabItem Header="Hmi">
-
-            </TabItem>
-            <TabItem Header="Hmi CBox">
-
-            </TabItem>
-            <TabItem Header="I/O Block">
-
-            </TabItem>
-            <TabItem Header="Multi FBlock">
-
-            </TabItem>
-            <TabItem Header="Single FBlock">
-
-            </TabItem>
-            <TabItem Header="Seq Block">
-
-            </TabItem>
-        </TabControl>
-
-    </DockPanel>
+    </Grid>
 </Window>

@@ -16,7 +16,7 @@ namespace PLCcodeGen
         private ObservableCollection<Item> items = new ObservableCollection<Item>();
         private ObservableCollection<Station> stations = new ObservableCollection<Station>();
 
-        #region  Properties Getters and Setters
+        #region Properties Getters and Setters
         public string Name
         {
             get => name;

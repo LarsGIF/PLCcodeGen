@@ -30,29 +30,6 @@ namespace PLCcodeGen
 
         void AppStartup(object sender, StartupEventArgs args)
         {
-            Project prj;
-
-            if (Settings.Default.LoadPreviousProject)
-            {
-                // Load last opened project
-                if (myProjects.Count == 0)
-                {
-                    XmlSerializer serializer = new XmlSerializer(typeof(Project));
-                    try
-                    {
-                        using (FileStream fileStream = new FileStream(Settings.Default.PreviousProjectPath, FileMode.Open))
-                        {
-                            prj = (Project)serializer.Deserialize(fileStream);
-                        }
-                        ((App)Application.Current).MyProjects.Add(prj);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Failed to open previous file!", "File Open Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        Console.Write(ex.StackTrace);
-                    }
-                }
-            } 
         } 
     }
 }

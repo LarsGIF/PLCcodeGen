@@ -8,25 +8,47 @@ using System.Text.RegularExpressions;
 namespace PLCcodeGen
 {
     [Serializable]
-    class PneuCyl : Item
+    public class PneuCyl : Item
     {
         private string sensBxF;
         private string sensBxR;
 
+        #region Properties Getters and Setters
+        public string SensBxF { get => sensBxF; set => sensBxF = value; }
+        public string SensBxR { get => sensBxR; set => sensBxR = value; }
+        #endregion
+
+        #region Contructors
+        public PneuCyl() {}
+
         public PneuCyl(string name) : base(name)
         {
-            base.Name = name;
-            if (Name[0] == 'C')
-            {
-                Name.Replace('C', 'c');
-                this.Name = Name;
-            }
+            string temp = Name.Substring(1);
 
             if (Name[0] == 'c')
             {
-                String[] split = Regex.Split(Name, @"\w*\d*\w*");
-                this.sensBxF = "Bc" + split[1] + split[2] + "F";
-                this.sensBxR = "Bc" + split[1] + split[2] + "R";
+                Name = "C" + temp;
+            }
+
+            if (Name[0] == 'C')
+            {
+                this.sensBxF = "Bc" + temp + "F";
+                this.sensBxR = "Bc" + temp + "R";
+            }
+        }
+
+        public PneuCyl(string location, string name) : base(name)
+        {
+            string temp = Name.Substring(1);
+
+            if (Name[0] == 'c')
+            {
+                Name = "C" + temp;
+            }
+
+            if (Name[0] == 'C') { 
+                this.sensBxF = location + "Bc" + temp + "F";
+                this.sensBxR = location + "Bc" + temp + "R";
             }
         }
 
@@ -35,8 +57,6 @@ namespace PLCcodeGen
             this.sensBxF = sensBxF;
             this.sensBxR = sensBxR;
         }
-
-        public string SensBxF { get => sensBxF; set => sensBxF = value; }
-        public string SensBxR { get => sensBxR; set => sensBxR = value; }
+        #endregion
     }
 }
