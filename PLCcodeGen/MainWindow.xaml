@@ -11,12 +11,11 @@
     
     <Window.Resources>
         <!-- 
-        Below data templates are used by the TemplateSelector used
+        Below data templates are used by the itemTemplateSelector used
         for the currentItem ContentControl in Grid on Grid.Row="2" Grid.Column="0" 
         -->
         <local:ItemTemplateSelector x:Key="itemTemplateSelector"/>
-        <local:DetailTemplateSelector x:Key="detailTemplateSelector"/>
-
+        
         <DataTemplate x:Key="ProjItemTemplate" >
             <Grid>
                 <Grid.RowDefinitions>
@@ -69,9 +68,11 @@
         </DataTemplate>
         
         <!-- 
-        Below data templates are used by the TemplateSelector used
+        Below data templates are used by the detailTemplateSelector used
         for the itemDetail ContentControl in Grid on Grid.Row="4" Grid.Column="0" 
         -->
+        <local:DetailTemplateSelector x:Key="detailTemplateSelector"/>
+
         <DataTemplate x:Key="PneuCylTemplate">
             <Grid>
                 <Grid.RowDefinitions>
@@ -88,6 +89,202 @@
                 <TextBlock Text="{Binding SensBxR}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"/>
             </Grid>
         </DataTemplate>
+        
+        <DataTemplate x:Key="ValveTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Type:" Margin="0,0,5,0" HorizontalAlignment="Right"/>
+                <TextBlock Text="{Binding Type}" Grid.Column="1" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="Function blocks" Margin="0,0,5,0"/>
+                <ListView Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding FBlocks}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding TypeName}"/>
+                            <GridViewColumn Header="Ver" DisplayMemberBinding="{Binding Ver}"/>
+                            <GridViewColumn Header="Type" DisplayMemberBinding="{Binding CdeType}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="Cylinders" Margin="0,0,5,0"/>
+                <ListView Grid.Row="4" Grid.ColumnSpan="2" ItemsSource="{Binding PneuCyls}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Sens F" DisplayMemberBinding="{Binding SensBxF}"/>
+                            <GridViewColumn Header="Sens R" DisplayMemberBinding="{Binding SensBxR}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ValveIslandTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Function blocks" Margin="0,0,5,0"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding FBlocks}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding TypeName}"/>
+                            <GridViewColumn Header="Ver" DisplayMemberBinding="{Binding Ver}"/>
+                            <GridViewColumn Header="Type" DisplayMemberBinding="{Binding CdeType}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="MotorTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Function blocks" Margin="0,0,5,0"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding FBlocks}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding TypeName}"/>
+                            <GridViewColumn Header="Ver" DisplayMemberBinding="{Binding Ver}"/>
+                            <GridViewColumn Header="Type" DisplayMemberBinding="{Binding CdeType}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="EnclosureTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Function blocks" Margin="0,0,5,0"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding FBlocks}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding TypeName}"/>
+                            <GridViewColumn Header="Ver" DisplayMemberBinding="{Binding Ver}"/>
+                            <GridViewColumn Header="Type" DisplayMemberBinding="{Binding CdeType}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="AGateTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Function blocks" Margin="0,0,5,0"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding FBlocks}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding TypeName}"/>
+                            <GridViewColumn Header="Ver" DisplayMemberBinding="{Binding Ver}"/>
+                            <GridViewColumn Header="Type" DisplayMemberBinding="{Binding CdeType}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="HmiTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Function blocks" Margin="0,0,5,0"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding FBlocks}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding TypeName}"/>
+                            <GridViewColumn Header="Ver" DisplayMemberBinding="{Binding Ver}"/>
+                            <GridViewColumn Header="Type" DisplayMemberBinding="{Binding CdeType}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="HmiCBTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Function blocks" Margin="0,0,5,0"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding FBlocks}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding TypeName}"/>
+                            <GridViewColumn Header="Ver" DisplayMemberBinding="{Binding Ver}"/>
+                            <GridViewColumn Header="Type" DisplayMemberBinding="{Binding CdeType}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="IoBlockTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Function blocks" Margin="0,0,5,0"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding FBlocks}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding TypeName}"/>
+                            <GridViewColumn Header="Ver" DisplayMemberBinding="{Binding Ver}"/>
+                            <GridViewColumn Header="Type" DisplayMemberBinding="{Binding CdeType}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="CodeBlockTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.ColumnSpan="2" Text="Function block" Margin="0,0,5,0"/>
+                <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding FBlocks}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding TypeName}"/>
+                            <GridViewColumn Header="Ver" DisplayMemberBinding="{Binding Ver}"/>
+                            <GridViewColumn Header="Inst" DisplayMemberBinding="{Binding InstType}"/>
+                            <GridViewColumn Header="Type" DisplayMemberBinding="{Binding CdeType}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </DataTemplate>
+
     </Window.Resources>
 
     <Window.CommandBindings>
@@ -105,7 +302,8 @@
         <CommandBinding Command="local:PcgCommands.AddPneuCyl" Executed="AddPneuCylCommand_Executed" CanExecute="AddPnuCylCommand_CanExecute"/>
         <CommandBinding Command="local:PcgCommands.AddValve" Executed="AddValveCommand_Executed" CanExecute="AddValveCommand_CanExecute"/>
         <CommandBinding Command="local:PcgCommands.AddMotor" Executed="AddMotorCommand_Executed" CanExecute="AddMotorCommand_CanExecute"/>
-
+        <CommandBinding Command="local:PcgCommands.AddMfBlock" Executed="AddMfBlock_Executed" CanExecute="AddMfBlock_CanExecute"/>
+        
         <!-- View Menu -->
 
         <!-- Tools Menu -->
@@ -137,6 +335,7 @@
                     <MenuItem Command="local:PcgCommands.AddPneuCyl"/>
                     <MenuItem Command="local:PcgCommands.AddValve"/>
                     <MenuItem Command="local:PcgCommands.AddMotor"/>
+                    <MenuItem Command="local:PcgCommands.AddMfBlock"/>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_View">

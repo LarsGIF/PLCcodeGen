@@ -9,13 +9,18 @@ namespace PLCcodeGen
     public enum IOtype { inp, outp, inOut}
 
     [Serializable]
-    class ValveIsland : Item
+    public class ValveIsland : Item
     {
         List<Module> modules;
         List<Valve> valves;
 
+        #region Properties Getters and Setters
         internal List<Module> Modules { get => modules; set => modules = value; }
         public List<Valve> Valves { get => valves; set => valves = value; }
+        #endregion
+
+        #region Constructors
+        public ValveIsland() {}
 
         public ValveIsland(string name, bool baseConfig) : base(name)
         {
@@ -28,6 +33,7 @@ namespace PLCcodeGen
                 valves.Add(new Valve("V0"));
             }
         }
+        #endregion
 
         public void AddModule(string name)
         {

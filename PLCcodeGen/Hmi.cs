@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 
 namespace PLCcodeGen
 {
-    [Serializable]
-    public class Enclosure : Item
+    public class Hmi : Item
     {
         #region Properties Getters and Setters
         #endregion
 
         #region Constructors
-        public Enclosure() {}
+        public Hmi() { }
 
-        public Enclosure(string name)
+        public Hmi(string name)
             : base(name)
         {
         }
-        #endregion
+        #endregion    
     }
 }

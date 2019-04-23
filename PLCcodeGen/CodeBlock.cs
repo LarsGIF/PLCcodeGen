@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 namespace PLCcodeGen
 {
     [Serializable]
-    public class Enclosure : Item
+    public class CodeBlock : Item
     {
-        #region Properties Getters and Setters
-        #endregion
-
         #region Constructors
-        public Enclosure() {}
+        public CodeBlock() {}
 
-        public Enclosure(string name)
+        public CodeBlock(string name)
             : base(name)
         {
         }

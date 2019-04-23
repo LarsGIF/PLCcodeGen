@@ -9,32 +9,32 @@ namespace PLCcodeGen
     [Serializable]
     public class FuncBlock
     {
-        private string name;
+        private string typeName;
         private string ver;
-        private CodeType cdeType;
-        private string def;
+        private InstanceType instType;
+        private TypeOfCode cdeType;
         private string connRules;
 
         #region  Properties Getters and Setters
-        public string Name
+        public string TypeName
         {
-            get => name;
-            set => name = value;
+            get => typeName;
+            set => typeName = value;
         }
         public string Ver
         {
             get => ver;
             set => ver = value;
         }
-        public CodeType CdeType
+        public InstanceType InstType
+        {
+            get => instType;
+            set => instType = value;
+        }
+        public TypeOfCode CdeType
         {
             get => cdeType;
             set => cdeType = value;
-        }
-        public string Def
-        {
-            get => def;
-            set => def = value;
         }
         public string ConnRules
         {
@@ -44,26 +44,34 @@ namespace PLCcodeGen
         #endregion
 
         #region Constructors
-        public FuncBlock()
+        public FuncBlock() {}
+
+        public FuncBlock(string typeName)
         {
-            this.name = "";
+            this.typeName = typeName;
         }
 
-        public FuncBlock(string name)
+        public FuncBlock(string typeName, string ver, TypeOfCode cdeType, string connRules)
         {
-            this.name = name;
-        }
-
-        public FuncBlock(string name, string ver, CodeType cdeType, string def, string connRules)
-        {
-            this.name = name;
             this.ver = ver;
             this.cdeType = cdeType;
-            this.def = def;
+            this.typeName = typeName;
             this.connRules = connRules;
         }
         #endregion
     }
 
-    public enum CodeType {std, safe};
+    public enum InstanceType
+    {
+        undefined,  // Undefined item (default if not defined)
+        single,     // Single instance FB (program)
+        multi,      // Multi instance FB (normal FB)
+        sfc         // Sequencial Function Chart
+    };
+
+    public enum TypeOfCode
+    {
+        std,        // Standard progarm
+        safe        // Failsafe program
+    };
 }

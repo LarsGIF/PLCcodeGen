@@ -59,10 +59,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddCodeBlockDlg.xaml.cs">
+      <DependentUpon>AddCodeBlockDlg.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddItemDlg.xaml.cs">
       <DependentUpon>AddItemDlg.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AGate.cs" />
+    <Compile Include="CodeBlock.cs" />
     <Compile Include="Enclosure.cs" />
+    <Compile Include="Hmi.cs" />
+    <Compile Include="HmiCB.cs" />
+    <Compile Include="IoBlock.cs" />
+    <Compile Include="Motor.cs" />
     <Compile Include="NewProjectDlg.xaml.cs">
       <DependentUpon>NewProjectDlg.xaml</DependentUpon>
     </Compile>
@@ -76,6 +85,10 @@
     <Compile Include="Station.cs" />
     <Compile Include="Valve.cs" />
     <Compile Include="ValveIsland.cs" />
+    <Page Include="AddCodeBlockDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddItemDlg.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 namespace PLCcodeGen
 {
     [Serializable]
-    public class Enclosure : Item
+    public class HmiCB :Item
     {
-        #region Properties Getters and Setters
-        #endregion
-
         #region Constructors
-        public Enclosure() {}
+        public HmiCB() { }
 
-        public Enclosure(string name)
+        public HmiCB(string name)
             : base(name)
         {
         }

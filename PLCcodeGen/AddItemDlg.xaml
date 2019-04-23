@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:PLCcodeGen"
         mc:Ignorable="d"
         Height="120" Width="300">
-    <!--dow.Resources>
+    <!--Window.Resources>
         <ObjectDataProvider x:Key="itemTypeEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="local:TypeOfItem"/>
@@ -30,7 +30,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label Name="itemLbl" HorizontalAlignment="Right"/>
-        <TextBox Name="itemName" Text="" Grid.Column="1" Margin="5" Width="170" HorizontalAlignment="Left"/>
+        <TextBox Name="itemName" Text="" Grid.Column="1" Margin="5" Width="165" HorizontalAlignment="Left"/>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Name="addBtn" Content="Add" Margin="5" Width="70" Click="AddBtn_Click"/>
             <Button Name="cancelBtn" Content="Cancel" Margin="5" Width="70" Click="CancelBtn_Click"/>

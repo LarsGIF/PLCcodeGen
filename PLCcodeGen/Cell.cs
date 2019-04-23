@@ -13,8 +13,8 @@ namespace PLCcodeGen
     {
         private string name;
         private List<Point> perimeter = new List<Point>();
-        private ObservableCollection<Item> items = new ObservableCollection<Item>();
         private ObservableCollection<Station> stations = new ObservableCollection<Station>();
+        private ObservableCollection<Item> items = new ObservableCollection<Item>();
 
         #region Properties Getters and Setters
         public string Name
@@ -27,15 +27,15 @@ namespace PLCcodeGen
             get => perimeter;
             set => perimeter = value;
         }
-        public ObservableCollection<Item> Items
-        {
-            get => items;
-            set => items = value;
-        }
         public ObservableCollection<Station> Stations
         {
             get => stations;
             set => stations = value;
+        }
+        public ObservableCollection<Item> Items
+        {
+            get => items;
+            set => items = value;
         }
         #endregion
 

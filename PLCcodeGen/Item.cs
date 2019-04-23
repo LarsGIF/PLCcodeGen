@@ -34,10 +34,7 @@ namespace PLCcodeGen
         #endregion
 
         #region Constructors
-        public Item()
-        {
-            this.name = "";
-        }
+        public Item() {}
 
         public Item(string name)
         {
@@ -57,8 +54,6 @@ namespace PLCcodeGen
         hmi,            // HMI
         hCB,            // Portable HMI connection box
         ioBlock,        // I/O block
-        mfBlock,        // Multi instance function block
-        sfBlock,        // Single instance function block
-        seqBlock        // SFC function block
+        cdeBlock        // Code Block
     };
 }

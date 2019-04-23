@@ -7,20 +7,15 @@ using System.Threading.Tasks;
 namespace PLCcodeGen
 {
     [Serializable]
-    public class Valve : Item
+    public class IoBlock : Item
     {
-        string type;
-        List<PneuCyl> pneuCyls;
-
         #region Properties Getters and Setters
-        public string Type { get => type; set => type = value; }
-        public List<PneuCyl> PneuCyls { get => pneuCyls; set => pneuCyls = value; }
         #endregion
 
         #region Constructors
-        public Valve() {}
+        public IoBlock() { }
 
-        public Valve(string name) 
+        public IoBlock(string name)
             : base(name)
         {
         }

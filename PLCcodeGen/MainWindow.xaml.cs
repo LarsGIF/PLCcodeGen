@@ -152,18 +152,27 @@ namespace PLCcodeGen
         private void AddCellCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = (((App)Application.Current).MyProjects.Count) == 1
-                && SelectedItem != null && (SelectedItem.GetType().ToString() == "PLCcodeGen.Project");
+                && SelectedItem != null && (SelectedItem.GetType().Name == "Project");
         }
         private void AddCellCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            //TODO: Add dialog to enter name of cell
-            ((Project)SelectedItem).Cells.Add(new Cell("Cxxx"));
+            AddItemDlg dlg = new AddItemDlg
+            {
+                Owner = this,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Tag = "Cell"
+            };
+            dlg.ShowDialog();
+            if (dlg.DialogResult == true)
+            {            
+                ((Project)SelectedItem).Cells.Add(new Cell(dlg.itemName.Text));
+            }
         }
 
         private void AddStnCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = (((App)Application.Current).MyProjects.Count) == 1
-                && SelectedItem != null && (SelectedItem.GetType().ToString() == "PLCcodeGen.Cell");
+                && SelectedItem != null && (SelectedItem.GetType().Name == "Cell");
         }
         private void AddStnCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -174,7 +183,7 @@ namespace PLCcodeGen
         private void AddPnuCylCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ((App)Application.Current).MyProjects.Count == 1
-                && SelectedItem != null && SelectedItem.GetType().ToString() == "PLCcodeGen.Station";
+                && SelectedItem != null && SelectedItem.GetType().Name == "Station";
         }
         private void AddPneuCylCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -203,7 +212,7 @@ namespace PLCcodeGen
         private void AddValveCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ((App)Application.Current).MyProjects.Count == 1
-                && SelectedItem != null && SelectedItem.GetType().ToString() == "PLCcodeGen.Station";
+                && SelectedItem != null && SelectedItem.GetType().Name == "Station";
         }
         private void AddValveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -231,11 +240,54 @@ namespace PLCcodeGen
         private void AddMotorCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ((App)Application.Current).MyProjects.Count == 1
-                && SelectedItem != null && SelectedItem.GetType().ToString() == "PLCcodeGen.Station";
+                && SelectedItem != null && SelectedItem.GetType().Name == "Station";
         }
         private void AddMotorCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
+        }
+
+        private void AddMfBlock_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ((App)Application.Current).MyProjects.Count == 1
+                && SelectedItem != null 
+                && (SelectedItem.GetType().Name == "Cell"
+                || SelectedItem.GetType().Name == "Station");
+        }
+        private void AddMfBlock_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            AddCodeBlockDlg dlg = new AddCodeBlockDlg
+            {
+                Owner = this,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Tag = "Muli Instance FBlock"
+            };
+            dlg.ShowDialog();
+            if (dlg.DialogResult == true)
+            {
+                // Create a function block type refrence
+                FuncBlock mFB = new FuncBlock(dlg.mFBType.Text);
+                mFB.Ver = dlg.version.Text;
+                mFB.CdeType = dlg.SelCodeType;
+
+                // Create a code block item and add the type to it
+                Item cdeBlock = new Item(dlg.cdeBName.Text);
+                cdeBlock.FBlocks.Add(mFB);
+
+                // Add the code block Item to Cell or Station
+                switch (SelectedItem.GetType().Name) {
+                    case "Cell":
+                        ((Cell)SelectedItem).Items.Add(cdeBlock);
+                        break;
+                    case "Station":
+                        ((Station)SelectedItem).Items.Add(cdeBlock);
+                        break;
+                    default:
+                        MessageBox.Show("A Muli Instance Function Block can only be added to Cell or Station!", 
+                            "Add Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                }           
+            }
         }
         #endregion
 
@@ -255,7 +307,7 @@ namespace PLCcodeGen
         }
         #endregion
 
-        #region helper methods
+        #region Helper methods
         public bool NewProject()
         {
             // Instantiate the dialog box
@@ -266,12 +318,19 @@ namespace PLCcodeGen
         public void OpenProject(string fileName)
         {
             // Open document
-            Type[] extraTypes = new Type[5];
+            Type[] extraTypes = new Type[12];
             extraTypes[0] = typeof(Cell);
             extraTypes[1] = typeof(Station);
             extraTypes[2] = typeof(PneuCyl);
             extraTypes[3] = typeof(Valve);
-            extraTypes[4] = typeof(Enclosure);
+            extraTypes[4] = typeof(ValveIsland);
+            extraTypes[5] = typeof(Motor);
+            extraTypes[6] = typeof(Enclosure);
+            extraTypes[7] = typeof(AGate);
+            extraTypes[8] = typeof(Hmi);
+            extraTypes[9] = typeof(HmiCB);
+            extraTypes[10] = typeof(IoBlock);
+            extraTypes[11] = typeof(CodeBlock);
             XmlSerializer serializer = new XmlSerializer(typeof(Project), extraTypes);
             try
             {
@@ -324,12 +383,19 @@ namespace PLCcodeGen
                 if (dlg.ShowDialog() == true)
                 {
                     // Create a serializer and a file stream;
-                    Type[] extraTypes = new Type[5];
+                    Type[] extraTypes = new Type[12];
                     extraTypes[0] = typeof(Cell);
                     extraTypes[1] = typeof(Station);
                     extraTypes[2] = typeof(PneuCyl);
                     extraTypes[3] = typeof(Valve);
-                    extraTypes[4] = typeof(Enclosure);
+                    extraTypes[4] = typeof(ValveIsland);
+                    extraTypes[5] = typeof(Motor);
+                    extraTypes[6] = typeof(Enclosure);
+                    extraTypes[7] = typeof(AGate);
+                    extraTypes[8] = typeof(Hmi);
+                    extraTypes[9] = typeof(HmiCB);
+                    extraTypes[10] = typeof(IoBlock);
+                    extraTypes[11] = typeof(CodeBlock);
                     XmlSerializer xs = new XmlSerializer(typeof(Project), extraTypes);
                     using (Stream stream = new FileStream(dlg.FileName, FileMode.Create, FileAccess.Write))
                     {
@@ -365,6 +431,7 @@ namespace PLCcodeGen
         }
         #endregion
 
+        #region Event methods
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             SelectedItem = e.NewValue;
@@ -382,52 +449,9 @@ namespace PLCcodeGen
                 itemDetail.Content = null;
                 return;
             }
-
-            // Set Content to selected item
-            switch (SelectedDetail.ItemType)
-            {
-                case TypeOfItem.cylinder:
-                    itemDetail.Content = source.SelectedItem as PneuCyl;
-                    break;
-                case TypeOfItem.valve:
-                    itemDetail.Content = source.SelectedItem as Valve;
-                    break;
-                case TypeOfItem.valveIsland:
-                    itemDetail.Content = source.SelectedItem as ValveIsland;
-                    break;
-                case TypeOfItem.motor:
-                    itemDetail.Content = source.SelectedItem as Item;
-                    break;
-                case TypeOfItem.enclosure:
-                    itemDetail.Content = source.SelectedItem as Enclosure;
-                    break;
-                case TypeOfItem.aGate:
-                    //itemDetail.Content = source.SelectedItem as ?;
-                    break;
-                case TypeOfItem.hmi:
-                    //itemDetail.Content = source.SelectedItem as ?;
-                    break;
-                case TypeOfItem.hCB:
-                    //itemDetail.Content = source.SelectedItem as ?;
-                    break;
-                case TypeOfItem.ioBlock:
-                    //itemDetail.Content = source.SelectedItem as ?;
-                    break;
-                case TypeOfItem.mfBlock:
-                    itemDetail.Content = source.SelectedItem as FuncBlock;
-                    break;
-                case TypeOfItem.sfBlock:
-                    itemDetail.Content = source.SelectedItem as FuncBlock;
-                    break;
-                case TypeOfItem.seqBlock:
-                    itemDetail.Content = source.SelectedItem as FuncBlock;
-                    break;
-                default:
-                    itemDetail.Content = null;
-                    break;
-            }
-            
+            itemDetail.Content = source.SelectedItem;
         }
+        #endregion
     }
 
     public class ItemTemplateSelector : DataTemplateSelector
@@ -464,6 +488,24 @@ namespace PLCcodeGen
             {
                 case "PneuCyl":
                     return element.FindResource("PneuCylTemplate") as DataTemplate;
+                case "Valve":
+                    return element.FindResource("ValveTemplate") as DataTemplate;
+                case "ValveIsland":
+                    return element.FindResource("ValveIslandTemplate") as DataTemplate;
+                case "Motor":
+                    return element.FindResource("MotorTemplate") as DataTemplate;
+                case "Enclosure":
+                    return element.FindResource("EnclosureTemplate") as DataTemplate;
+                case "AGate":
+                    return element.FindResource("AGateTemplate") as DataTemplate;
+                case "Hmi":
+                    return element.FindResource("HmiTemplate") as DataTemplate;
+                case "HmiCB":
+                    return element.FindResource("HmiCBTemplate") as DataTemplate;
+                case "IoBlock":
+                    return element.FindResource("IoBlockTemplate") as DataTemplate;
+                case "CodeBlock":
+                    return element.FindResource("CodeBlockTemplate") as DataTemplate;
                 default:
                     return null;
             }

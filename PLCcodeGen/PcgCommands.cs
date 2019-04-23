@@ -135,7 +135,7 @@ namespace PLCcodeGen
         // Add Muli Instance Function Block
         public static readonly RoutedUICommand AddMfBlock = new RoutedUICommand
             (
-                "Add Function Block",
+                "Add Muli FBlock",
                 "AddMfBlock",
                 typeof(PcgCommands),
                 new InputGestureCollection()
