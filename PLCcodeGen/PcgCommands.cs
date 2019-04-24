@@ -35,7 +35,7 @@ namespace PLCcodeGen
             );
         #endregion
 
-        #region AddItems menu
+        #region AddItems submenu
         // Add Pnematic Cylinder
         public static readonly RoutedUICommand AddPneuCyl = new RoutedUICommand
             (
@@ -57,6 +57,18 @@ namespace PLCcodeGen
                 new InputGestureCollection()
                 {
                             new KeyGesture(Key.V, ModifierKeys.Control)
+                }
+            );
+
+        // Add Pnematic Valve Island
+        public static readonly RoutedUICommand AddValveIsland = new RoutedUICommand
+            (
+                "Add Valve Island",
+                "AddValveIsland",
+                typeof(PcgCommands),
+                new InputGestureCollection()
+                {
+                            new KeyGesture(Key.Y, ModifierKeys.Control)
                 }
             );
 
@@ -135,7 +147,7 @@ namespace PLCcodeGen
         // Add Muli Instance Function Block
         public static readonly RoutedUICommand AddMfBlock = new RoutedUICommand
             (
-                "Add Muli FBlock",
+                "Add Multi Inst FB",
                 "AddMfBlock",
                 typeof(PcgCommands),
                 new InputGestureCollection()

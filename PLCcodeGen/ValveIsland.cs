@@ -11,42 +11,51 @@ namespace PLCcodeGen
     [Serializable]
     public class ValveIsland : Item
     {
-        List<Module> modules;
-        List<Valve> valves;
+        List<Module> modules = new List<Module>();
+        List<Valve> valves = new List<Valve>();
+        List<Component> components = new List<Component>();
 
         #region Properties Getters and Setters
-        internal List<Module> Modules { get => modules; set => modules = value; }
+        public List<Module> Modules { get => modules; set => modules = value; }
         public List<Valve> Valves { get => valves; set => valves = value; }
+        public List<Component> Components { get => components; set => components = value; }
         #endregion
 
         #region Constructors
-        public ValveIsland() {}
-
-        public ValveIsland(string name, bool baseConfig) : base(name)
+        public ValveIsland()
         {
-            if (baseConfig)
-            {
-                // Minimum configuration for a valve island comprise: 
-                // one input module, one safety output module and one pilot air valve
-                modules.Add(new Module(""));
-                modules.Add(new Module(""));
-                valves.Add(new Valve("V0"));
-            }
+            base.ItemType = TypeOfItem.valveIsland;
+        }
+
+        public ValveIsland(string location, string name) 
+            : base(name)
+        {
+            base.ItemType = TypeOfItem.valveIsland;
+
+            // Minimum configuration for a valve island comprise: 
+            // one communication module, one input module, one safety output module and one pilot air valve
+            // TODO: Add communication module ".0".
+            modules.Add(new Module(name + ".1", 8, IOtype.inp, "bool"));
+            modules[0].Ios[0].Name = location + "Bv0F";
+            modules.Add(new Module(name + ".2", 3, IOtype.outp, "bool"));
+            modules[1].Ios[0].Name = location + "YvOn"; // TODO: May not be correct
+            valves.Add(new Valve("V0")); // Pilot air valve.
         }
         #endregion
 
-        public void AddModule(string name)
+        public int InsertModule(string name, int size, IOtype ioType, string varType)
         {
-            modules.Add(new Module(name));
-        }
-
-        public void InsertModule(string name)
-        {
-            // Insert a new module before the last module
-            Module newModule = new Module(name);
             Module last = modules[modules.Count-1];
+
+            // Adjust output module name and add a copy. 
+            last.Name = name + "." + (modules.Count);
             modules.Add(last);
-            modules[modules.Count-2] = newModule;
+
+            // Insert a new module before the last module
+            modules[modules.Count-2] = new Module(name + "." + (modules.Count-2), size, ioType, varType);
+
+            // Return index to new module
+            return modules.Count-2;
         }
 
         public bool RemoveModule(string name)
@@ -58,11 +67,6 @@ namespace PLCcodeGen
                 return true;
             }
             return false;
-        }
-
-        public void AddValve()
-        {
-            valves.Add(new Valve("V" + valves.Count));
         }
 
         public bool RemoveValve()
@@ -77,27 +81,39 @@ namespace PLCcodeGen
     }
 
     [Serializable]
-    class Module
+    public class Module
     {
         string name;
+        int size;
         List<IO> ios;
 
-        public Module(string name)
+        public string Name { get => name; set => name = value; }
+        public int Size { get => size; set => size = value; }
+        public List<IO> Ios { get => ios; set => ios = value; }
+
+        #region Constructors
+        public Module() { }
+
+        public Module(string name, int size, IOtype ioType, string varType)
         {
             this.name = name;
+            this.size = size;
+            this.ios = new List<IO>();
+            for(int i = 0; i < size; i++)
+            {
+                this.ios.Add(new IO(ioType, varType));
+            }
         }
-
-        public string Name { get => name; set => name = value; }
-        internal List<IO> Ios { get => ios; set => ios = value; }
+        #endregion
     }
 
     [Serializable]
-    class IO
+    public class IO
     {
-        string name;
-        IOtype ioType;
-        string adr;
-        string varType;
+        string name;    // variable name
+        IOtype ioType;  // enum type
+        string adr;     
+        string varType; // e.g. bool
         string comment;
 
         public string Name { get => name; set => name = value; }
@@ -106,9 +122,12 @@ namespace PLCcodeGen
         public string VarType { get => varType; set => varType = value; }
         public string Comment { get => comment; set => comment = value; }
 
-        public IO(string name)
+        public IO() { }
+
+        public IO(IOtype ioType, string varType)
         {
-            this.name = name;
+            this.ioType = ioType;
+            this.varType = varType;
         }
     }
 }

@@ -200,7 +200,6 @@ namespace PLCcodeGen
                 {
                     PneuCyl cyl = new PneuCyl(((App)Application.Current).MyProjects[0].PlcName
                         + ((Station)SelectedItem).Name.Substring(1), dlg.itemName.Text);
-                    cyl.ItemType = TypeOfItem.cylinder;
                     ((Station)SelectedItem).Items.Add(cyl);
                 }
                 else
@@ -228,7 +227,6 @@ namespace PLCcodeGen
                 if (SelectedItem.GetType().ToString() == "PLCcodeGen.Station")
                 {
                     Valve valve = new Valve(dlg.itemName.Text);
-                    valve.ItemType = TypeOfItem.valve;
                     ((Station)SelectedItem).Items.Add(valve);
                 }
                 else
@@ -237,6 +235,64 @@ namespace PLCcodeGen
             }
         }
 
+        private void AddValveIslandCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ((App)Application.Current).MyProjects.Count == 1
+                && SelectedItem != null && SelectedItem.GetType().Name == "Station";
+        }
+        private void AddValveIslandCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            // TODO: This dialog can only add one valve island to a station. A second will overwrite the first.
+            // TODO: I/O addresses are not set by this method.
+            AddValveIslandDlg dlg = new AddValveIslandDlg
+            {
+                Owner = this,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Tag = "Valve Isalnd"
+            };
+            dlg.ShowDialog();
+            if(dlg.DialogResult == true)
+            {
+                if (SelectedItem.GetType().ToString() == "PLCcodeGen.Station")
+                {
+                    // Create a new valve island with basic configuration.
+                    string location = ((App)Application.Current).MyProjects[0].PlcName + ((Station)SelectedItem).Name.Substring(1);
+                    ValveIsland valveIsland = new ValveIsland(location, dlg.vIslandName.Text);
+
+                    // Add all valves in station
+                    // TODO: Need to be modified to handle more than one valve island in a station.
+                    int modNum = 1; // Start on first input module.
+                    int ioNum = 2;  // Start with third input. (First input occupied by pilot air valve sensor.)
+                    foreach (Item item in ((Station)SelectedItem).Items)
+                    {
+                        if (item.ItemType == TypeOfItem.valve) {
+                            Valve v = (Valve)item;
+                            foreach(PneuCyl cyl in v.PneuCyls)
+                            {
+                                if(ioNum > valveIsland.Modules[modNum].Size)
+                                {
+                                    modNum = valveIsland.InsertModule(v.Name + "." + modNum.ToString(), 8, IOtype.inp, "bool");
+                                    ioNum = 0;
+                                }
+                                valveIsland.Modules[modNum].Ios[ioNum++].Name = cyl.SensBxF;
+                                if (ioNum > valveIsland.Modules[modNum].Size)
+                                {
+                                    modNum = valveIsland.InsertModule(v.Name + "." + modNum.ToString(), 8, IOtype.inp, "bool");
+                                    ioNum = 0;
+                                }
+                                valveIsland.Modules[modNum].Ios[ioNum++].Name = cyl.SensBxR;
+                            }
+                            // TODO: Add outputs for valves.
+                            valveIsland.Valves.Add(v);
+                        }
+                    }
+                    ((Station)SelectedItem).Items.Add(valveIsland);
+                }
+                else
+                    MessageBox.Show("You can only add Valve Islands to a Station.", "Input Error",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void AddMotorCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ((App)Application.Current).MyProjects.Count == 1
@@ -260,19 +316,21 @@ namespace PLCcodeGen
             {
                 Owner = this,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                Tag = "Muli Instance FBlock"
+                Tag = "Code Block"
             };
             dlg.ShowDialog();
             if (dlg.DialogResult == true)
             {
-                // Create a function block type refrence
-                FuncBlock mFB = new FuncBlock(dlg.mFBType.Text);
-                mFB.Ver = dlg.version.Text;
-                mFB.CdeType = dlg.SelCodeType;
+                // Create a multi instance function block refrence
+                FuncBlock fb = new FuncBlock(dlg.fbType.Text);
+                fb.Ver = dlg.version.Text;
+                fb.InstType = InstanceType.multi;
+                fb.CdeType = dlg.SelCodeType;
 
                 // Create a code block item and add the type to it
-                Item cdeBlock = new Item(dlg.cdeBName.Text);
-                cdeBlock.FBlocks.Add(mFB);
+                CodeBlock cdeBlock = new CodeBlock(dlg.cdeBName.Text);
+                cdeBlock.ItemType = TypeOfItem.cdeBlock;
+                cdeBlock.FBlocks.Add(fb);
 
                 // Add the code block Item to Cell or Station
                 switch (SelectedItem.GetType().Name) {

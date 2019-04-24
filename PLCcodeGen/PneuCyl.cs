@@ -18,10 +18,15 @@ namespace PLCcodeGen
         #endregion
 
         #region Contructors
-        public PneuCyl() {}
-
-        public PneuCyl(string name) : base(name)
+        public PneuCyl()
         {
+            base.ItemType = TypeOfItem.cylinder;
+        }
+
+        public PneuCyl(string name) 
+            : base(name)
+        {
+            base.ItemType = TypeOfItem.cylinder;
             string temp = Name.Substring(1);
 
             if (Name[0] == 'c')
@@ -36,8 +41,10 @@ namespace PLCcodeGen
             }
         }
 
-        public PneuCyl(string location, string name) : base(name)
+        public PneuCyl(string location, string name) 
+            : base(name)
         {
+            base.ItemType = TypeOfItem.cylinder;
             string temp = Name.Substring(1);
 
             if (Name[0] == 'c')
@@ -51,8 +58,10 @@ namespace PLCcodeGen
             }
         }
 
-        public PneuCyl(string name, string valve, string sensBxF, string sensBxR) : base(name)
+        public PneuCyl(string name, string valve, string sensBxF, string sensBxR) 
+            : base(name)
         {
+            base.ItemType = TypeOfItem.cylinder;
             this.sensBxF = sensBxF;
             this.sensBxR = sensBxR;
         }

@@ -1,0 +1,26 @@
+﻿<Window x:Class="PLCcodeGen.AddValveIslandDlg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PLCcodeGen"
+        mc:Ignorable="d"
+        Title="Add Valve Island" Height="200" Width="500">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Name="itemLbl" Content="Name" HorizontalAlignment="Right"/>
+        <TextBox Name="vIslandName" Text="" Grid.Column="1" Margin="5" Width="165" HorizontalAlignment="Left"/>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="addBtn" Content="Add" Margin="5" Width="70" Click="AddBtn_Click"/>
+            <Button Name="cancelBtn" Content="Cancel" Margin="5" Width="70" Click="CancelBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

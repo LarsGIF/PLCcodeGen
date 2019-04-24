@@ -18,11 +18,15 @@ namespace PLCcodeGen
         #endregion
 
         #region Constructors
-        public Valve() {}
+        public Valve()
+        {
+            base.ItemType = TypeOfItem.valve;
+        }
 
         public Valve(string name) 
             : base(name)
         {
+            base.ItemType = TypeOfItem.valve;
         }
         #endregion
     }

@@ -6,7 +6,7 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:PLCcodeGen"
         mc:Ignorable="d"
-        Title="AddCodeBlockDlg" Height="200" Width="400">
+        Title="Add Code Block" Height="200" Width="400">
 
     <Window.Resources>
         <ObjectDataProvider x:Key="cdeTypeEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
@@ -32,9 +32,9 @@
         <Label Name="itemLbl" HorizontalAlignment="Right"/>
         <TextBox Name="cdeBName" Text="" Grid.Column="1" Margin="5" Width="165" HorizontalAlignment="Left"/>
         <Label Grid.Row="1"  Content="FB Type:" Height="25"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" Name="mFBType"  HorizontalAlignment="Left"
+        <ComboBox Grid.Row="1" Grid.Column="1" Name="fbType"  HorizontalAlignment="Left"
             Height="20" Width="100">
-            <ComboBoxItem Content="Mode"/>
+            <ComboBoxItem Content="ModeCtrl"/>
             <ComboBoxItem Content="AreaCtrl"/>
             <ComboBoxItem Content="A_Stn"/>
             <ComboBoxItem Content="ValveCtrl2"/>

@@ -65,12 +65,17 @@
     <Compile Include="AddItemDlg.xaml.cs">
       <DependentUpon>AddItemDlg.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddValveIslandDlg.xaml.cs">
+      <DependentUpon>AddValveIslandDlg.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AGate.cs" />
     <Compile Include="CodeBlock.cs" />
+    <Compile Include="Component.cs" />
     <Compile Include="Enclosure.cs" />
     <Compile Include="Hmi.cs" />
     <Compile Include="HmiCB.cs" />
     <Compile Include="IoBlock.cs" />
+    <Compile Include="ItemLib.cs" />
     <Compile Include="Motor.cs" />
     <Compile Include="NewProjectDlg.xaml.cs">
       <DependentUpon>NewProjectDlg.xaml</DependentUpon>
@@ -90,6 +95,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddItemDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddValveIslandDlg.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -301,6 +301,7 @@
         <!-- Add Items Menu-->
         <CommandBinding Command="local:PcgCommands.AddPneuCyl" Executed="AddPneuCylCommand_Executed" CanExecute="AddPnuCylCommand_CanExecute"/>
         <CommandBinding Command="local:PcgCommands.AddValve" Executed="AddValveCommand_Executed" CanExecute="AddValveCommand_CanExecute"/>
+        <CommandBinding Command="local:PcgCommands.AddValveIsland" Executed="AddValveIslandCommand_Executed" CanExecute="AddValveIslandCommand_CanExecute"/>
         <CommandBinding Command="local:PcgCommands.AddMotor" Executed="AddMotorCommand_Executed" CanExecute="AddMotorCommand_CanExecute"/>
         <CommandBinding Command="local:PcgCommands.AddMfBlock" Executed="AddMfBlock_Executed" CanExecute="AddMfBlock_CanExecute"/>
         
@@ -334,6 +335,7 @@
                 <MenuItem Header="Add Items">
                     <MenuItem Command="local:PcgCommands.AddPneuCyl"/>
                     <MenuItem Command="local:PcgCommands.AddValve"/>
+                    <MenuItem Command="local:PcgCommands.AddValveIsland"/>
                     <MenuItem Command="local:PcgCommands.AddMotor"/>
                     <MenuItem Command="local:PcgCommands.AddMfBlock"/>
                 </MenuItem>
